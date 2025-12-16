@@ -1435,29 +1435,13 @@ def basecamp_webhook():
             timestamp=datetime.now().timestamp()
         )
         
-        # Add to queue
-        qc_queue.put(task)
-        
-        # Get queue position
-        position = qc_queue.qsize()
-        
-        print(f"📥 Task added to queue (Position: {position})")
-        
-        # If not first in queue, notify about position
-        if position > 1:
-            token = get_access_token()
-            if token:
-                post_queue_notification(pid, card_id, position, token)
-        
+        # Process synchronously (Render compatible)
+        print(f"🔄 Processing task synchronously...")
+        process_qc_task(task)
         print("="*60)
-        print(f"✅ WEBHOOK COMPLETED - Task queued")
+        print(f"✅ WEBHOOK COMPLETED - Task processed synchronously")
         print("="*60 + "\n")
-        
-        return jsonify({
-            "status": "queued",
-            "position": position,
-            "queue_size": qc_queue.qsize()
-        }), 200
+        return jsonify({"status": "processed"}), 200
 
     except Exception as e:
         print(f"❌ WEBHOOK ERROR: {e}")
@@ -1486,11 +1470,15 @@ if __name__ == "__main__":
     get_access_token()
     
     # Start queue worker thread
-    worker_thread = threading.Thread(target=queue_worker, daemon=True)
-    worker_thread.start()
-    print("✅ Queue worker started!")
+    # Disabled: Queue-based processing doesn't work on Render free tier
+    # Background threads are killed on service restart
+    # Using synchronous processing in webhook instead
+    # worker_thread = threading.Thread(target=queue_worker, daemon=True)
+    # worker_thread.start()
+    # print("✅ Queue worker started!")
     
     print("\n✅ Bot ready! Waiting for webhooks...\n")
+    print("📝 Processing mode: SYNCHRONOUS (Render compatible)\n")
     app.run(host="0.0.0.0", port=5000, debug=False)
 
 @app.route("/", methods=["GET"])
