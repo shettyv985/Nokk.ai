@@ -200,7 +200,7 @@ def main():
             print("\n🎉 ALL WEBHOOKS CONFIGURED SUCCESSFULLY!")
             print("\n📝 Next steps:")
             print("1. Go to any configured Basecamp project")
-            print("2. Add a comment with @Blu")
+            print("2. Add a comment with @nokk")
             print("3. Bot will auto-detect project and apply brand context")
             print("4. Watch the magic happen! ✨\n")
         else:

@@ -1294,7 +1294,7 @@ def process_qc_task(task: QCTask):
             result = perform_image_qc_with_huggingface(image, task.full_context)
         else:
             # Clean up text content
-            text_content = re.sub(r'@blu\b', '', task.content, flags=re.IGNORECASE).strip()
+            text_content = re.sub(r'@nokk\b', '', task.content, flags=re.IGNORECASE).strip()
             
             # Check if it's a reel script
             is_reel = False
@@ -1388,8 +1388,8 @@ def basecamp_webhook():
             print(f"⏭️  Ignoring: already processed")
             return jsonify({"status": "ignored", "reason": "duplicate"}), 200
             
-        if "@blu" not in content_lower:
-            print(f"⏭️  Ignoring: no @blu trigger")
+        if "@nokk" not in content_lower:
+            print(f"⏭️  Ignoring: no @nokk trigger")
             return jsonify({"status": "ignored", "reason": "no_trigger"}), 200
 
         processed_comments.add(cid)
@@ -1413,7 +1413,7 @@ def basecamp_webhook():
 
         # Extract URLs and user context
         urls = extract_urls(content_raw)
-        user_context = re.sub(r'@blu\b', '', content_raw, count=1, flags=re.IGNORECASE).strip()
+        user_context = re.sub(r'@nokk\b', '', content_raw, count=1, flags=re.IGNORECASE).strip()
         for url in urls:
             user_context = user_context.replace(url, "").strip()
         
@@ -1498,15 +1498,15 @@ Model: Hugging Face Llama Vision + Text
 
 Usage:
   <b>For Image QC:</b>
-  1. Comment: @blu [optional brand brief]
+  1. Comment: @nokk [optional brand brief]
   2. Attach image or provide Google Drive link
   
   <b>For Poster Copy QC:</b>
-  1. Comment: @blu
+  1. Comment: @nokk
   2. Paste your poster copy text
   
   <b>For Reel/Video Script QC:</b>
-  1. Comment: @blu [reel]
+  1. Comment: @nokk [reel]
   2. Paste your reel/video script
   
   3. Bot auto-detects project and applies brand context
