@@ -1256,7 +1256,9 @@ def process_qc_task(task: QCTask):
         
         token = get_access_token()
         if not token:
-            print("✗ Failed to get access token")
+            print("❌ FATAL: Failed to get access token - check CONFIG credentials")
+            print(f"   CLIENT_ID: {CONFIG['CLIENT_ID'][:20]}...")
+            print(f"   ACCOUNT_ID: {CONFIG['ACCOUNT_ID']}")
             return
         
         # Notify user that processing is starting
