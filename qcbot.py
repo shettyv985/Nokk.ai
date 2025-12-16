@@ -491,8 +491,12 @@ processing_lock = threading.Lock()
 is_processing = False
 current_task: Optional[QCTask] = None
 
-# Initialize Groq client
-groq_client = Groq(api_key=CONFIG["GROQ_API_KEY"])
+# Lazy initialization of Groq client
+def get_groq_client():
+    """Initialize Groq client lazily to avoid errors if API key is missing"""
+    if not hasattr(get_groq_client, 'client'):
+        get_groq_client.client = Groq(api_key=CONFIG["GROQ_API_KEY"])
+    return get_groq_client.client
 
 # Queue system
 access_token = None
@@ -829,7 +833,7 @@ Focus on grammar, clarity, messaging, and actionable design improvements.
 Ensure ratings reflect both problem severity and impact on conversion/brand perception."""
 
 
-        completion = groq_client.chat.completions.create(
+        completion = get_groq_client().chat.completions.create(
             model="meta-llama/llama-4-scout-17b-16e-instruct",
             messages=[
                 {
@@ -1038,7 +1042,7 @@ Ensure evaluation reflects how the copy will perform with the audience and in re
         print(f"🤖 Sending to Groq Text API (Llama 3.3 70B)...")
         print(f"   Content Type: {'REEL/VIDEO SCRIPT' if is_reel else 'POSTER COPY'}")
         
-        completion = groq_client.chat.completions.create(
+        completion = get_groq_client().chat.completions.create(
             model="meta-llama/llama-4-scout-17b-16e-instruct",
             messages=[{"role": "user", "content": prompt}],
             max_tokens=600,
