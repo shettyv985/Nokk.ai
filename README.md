@@ -1,4 +1,4 @@
-# Basecamp AI QC Bot
+# Nokk.AI QC Bot - v1.0
 
 A multi-project, brand-aware AI Quality Control (QC) bot for Basecamp, built with Flask, Groq. This bot automates comment analysis and brand-specific responses across multiple Basecamp projects, with easy deployment on Render and local development support.
 
