@@ -147,13 +147,6 @@ python webhook.py https://your-ngrok-or-production-url
 
 ---
 
-## Security & Best Practices
-
-- **Never commit secrets:** `.env` is in `.gitignore`.
-- **Rotate API keys** regularly.
-- **Limit webhook exposure** to trusted sources.
-
----
 
 
 
