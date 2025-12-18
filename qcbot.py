@@ -798,7 +798,7 @@ Current State: [What the logo shows]
 
 Correction Required: [What needs fixing and why]
 
-Reliable Rating System (0–10) and please dont score randomly be very effective  and strict and always give score according to said criterias and explain why did u deduct score and what was the issue where u have deducted the score too
+Reliable Rating System (0–10) and please dont score randomly be very effective  and strict don't give score more than 7 untill and unless its that much effective and good  and always give score according to said criterias and explain why did u deduct score and what was the issue where u have deducted the score too
 
 Copy Quality: /10 → Grammar, clarity, messaging, and brand tone accuracy.
 
@@ -830,7 +830,8 @@ Quote exact text for copy problems.
 
 Focus on grammar, clarity, messaging, and actionable design improvements.
 
-Ensure ratings reflect both problem severity and impact on conversion/brand perception."""
+Ensure ratings reflect both problem severity and impact on conversion/brand perception.
+Be very strict and effective  don't give score more than 7 untill and unless its that much effective and good """
 
 
         completion = get_groq_client().chat.completions.create(
@@ -887,7 +888,7 @@ On-Screen Text, Captions & CTA (20%) – Readability, timing, messaging clarity,
 
 Brand Voice & Trend Alignment (15%) – Consistency with brand personality, tone, and alignment with relevant reel/video trends.
 
-Category Scoring (0–10) please dont score randomly be very effective  and strict and always give score according to said criterias and  explain why did u deduct score and what was the issue where u have deducted the score too:
+Category Scoring (0–10) please dont score randomly be very effective  and strict don't give score more than 7 untill and unless its that much effective and good and always give score according to said criterias and  explain why did u deduct score and what was the issue where u have deducted the score too:
 
 0–3: Major issue; severely affects clarity, engagement, or brand perception.
 
@@ -951,7 +952,8 @@ Be professional, precise, and actionable.
 
 Do not provide solutions or fixes—observations only.
 
-Ensure evaluation reflects how the reel/video will perform in real audience scenarios"""
+Ensure evaluation reflects how the reel/video will perform in real audience scenarios
+Be very strict and effective  don't give score more than 7 untill and unless its that much effective and good"""
         else:
             # Normal Poster Copy QC Prompt
             prompt = f"""You are a Professional Copy QC Analyst.
@@ -973,7 +975,7 @@ Call-to-Action (20%) – Clarity, urgency, visibility, and conversion potential.
 
 Overall Impact & Brand Consistency (15%) – Professionalism, cohesiveness, trustworthiness, and tone consistency.
 
-Category Scoring (0–10):Reliable Rating System (0–10) and please dont score randomly be very effective and strict and always give score according to said criterias and explain and why did u deduct score and what was the issue where u have deducted the score too
+Category Scoring (0–10):Reliable Rating System (0–10) and please dont score randomly be very effective and strict strict don't give score more than 7 untill and unless its that much effective and good and always give score according to said criterias and explain and why did u deduct score and what was the issue where u have deducted the score too
 
 0–3: Major issue; severely affects readability, clarity, or brand perception.
 
@@ -1037,7 +1039,8 @@ Include positive observations wherever applicable.
 
 Do not suggest fixes—observations only.
 
-Ensure evaluation reflects how the copy will perform with the audience and in real campaigns."""
+Ensure evaluation reflects how the copy will perform with the audience and in real campaigns.
+Be very strict and effective  don't give score more than 7 untill and unless its that much effective and good"""
 
         print(f"🤖 Sending to Groq Text API (Llama 3.3 70B)...")
         print(f"   Content Type: {'REEL/VIDEO SCRIPT' if is_reel else 'POSTER COPY'}")
