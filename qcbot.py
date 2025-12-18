@@ -798,7 +798,7 @@ Current State: [What the logo shows]
 
 Correction Required: [What needs fixing and why]
 
-Reliable Rating System (0–10)
+Reliable Rating System (0–10) and please dont score randomly be very effective  and strict and always give score according to said criterias and explain why did u deduct score and what was the issue where u have deducted the score too
 
 Copy Quality: /10 → Grammar, clarity, messaging, and brand tone accuracy.
 
@@ -887,7 +887,7 @@ On-Screen Text, Captions & CTA (20%) – Readability, timing, messaging clarity,
 
 Brand Voice & Trend Alignment (15%) – Consistency with brand personality, tone, and alignment with relevant reel/video trends.
 
-Category Scoring (0–10):
+Category Scoring (0–10) please dont score randomly be very effective  and strict and always give score according to said criterias and  explain why did u deduct score and what was the issue where u have deducted the score too:
 
 0–3: Major issue; severely affects clarity, engagement, or brand perception.
 
@@ -973,7 +973,7 @@ Call-to-Action (20%) – Clarity, urgency, visibility, and conversion potential.
 
 Overall Impact & Brand Consistency (15%) – Professionalism, cohesiveness, trustworthiness, and tone consistency.
 
-Category Scoring (0–10):
+Category Scoring (0–10):Reliable Rating System (0–10) and please dont score randomly be very effective and strict and always give score according to said criterias and explain and why did u deduct score and what was the issue where u have deducted the score too
 
 0–3: Major issue; severely affects readability, clarity, or brand perception.
 
