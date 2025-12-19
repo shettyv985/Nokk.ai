@@ -1579,7 +1579,7 @@ Analyze:
 REQUIRED OUTPUT FORMAT (Copy Exactly)
 ═══════════════════════════════════════════════════
 POSTER COPY QC ANALYSIS
-Copy Length: {len(copy_content.split())} words | Character Count: {len(copy_content)} characters
+Copy Length: {len(text.split())} words | Character Count: {len(text)} characters
 ───────────────────────────────────────────────────
 CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
 ───────────────────────────────────────────────────
