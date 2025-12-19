@@ -1214,8 +1214,6 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current Script:** "[Quote exact opening lines]"
   **Problem:** [Why this hook is weak/strong, what's missing]
-  **Impact:** [Will viewers scroll past? Does it grab attention?]
-  **Fix Needed:** [Specific suggestion for stronger hook]
 
 **SCORE: [X]/10**
 **Deductions:**
@@ -1230,8 +1228,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Problem:** [Scene transition issues, pacing problems, length concerns]
-  **Impact:** [Viewer retention, engagement, platform optimization]
-  **Fix Needed:** [Specific pacing/transition improvements]
+
 
 **SCORE: [X]/10**
 **Deductions:**
@@ -1247,8 +1244,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current Dialogue:** "[Quote problematic dialogue]"
   **Problem:** [Grammar, pronunciation, flow, or naturalness issues]
-  **Impact:** [Delivery difficulty, audience confusion, credibility]
-  **Fix Needed:** "[Suggested dialogue correction]"
+
 
 **SCORE: [X]/10**
 **Deductions:**
@@ -1264,8 +1260,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current CTA/Caption:** "[Quote exact text]"
   **Problem:** [Clarity, timing, visibility, or action issues]
-  **Impact:** [Conversion loss, unclear message, missed opportunity]
-  **Fix Needed:** [Specific CTA/caption improvements]
+
 
 **SCORE: [X]/10**
 **Deductions:**
@@ -1280,8 +1275,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Problem:** [Brand voice misalignment, trend misuse, platform mismatch]
-  **Impact:** [Brand perception, audience disconnect, platform performance]
-  **Fix Needed:** [Specific brand/trend adjustments]
+
 
 **SCORE: [X]/10**
 **Deductions:**
@@ -1591,8 +1585,7 @@ CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
 [BLOCKER/HIGH/MEDIUM] - [Issue title]
 Current Headline: "[Quote exact headline]"
 Problem: [Why this headline is weak, what's missing, clarity issues]
-Impact: [Will viewers ignore it? Does it grab attention? Brand impact?]
-Fix Needed: "[Specific suggestion for stronger headline]"
+
 
 SCORE: [X]/10
 Deductions:
@@ -1611,8 +1604,7 @@ CATEGORY 2: GRAMMAR & SPELLING (25% Weight)
 [BLOCKER/HIGH/MEDIUM] - [Issue title]
 Current Text: "[Quote exact problematic text]"
 Problem: [Grammar error, spelling mistake, punctuation issue]
-Impact: [Credibility loss, unprofessional appearance, confusion]
-Fix Needed: "[Exact correction with proper grammar/spelling]"
+
 
 SCORE: [X]/10
 Deductions:
@@ -1631,8 +1623,7 @@ CATEGORY 3: MESSAGE CLARITY & FLOW (20% Weight)
 [BLOCKER/HIGH/MEDIUM] - [Issue title]
 Current Copy: "[Quote relevant section]"
 Problem: [Clarity issue, flow problem, confusing structure, word choice]
-Impact: [Message confusion, reduced effectiveness, poor comprehension]
-Fix Needed: [Specific copy improvements for clarity]
+
 
 SCORE: [X]/10
 Deductions:
@@ -1651,8 +1642,7 @@ CATEGORY 4: CTA & CONVERSION ELEMENTS (15% Weight)
 [BLOCKER/HIGH/MEDIUM] - [Issue title]
 Current CTA: "[Quote exact CTA text]"
 Problem: [Weak action word, unclear benefit, poor placement, no urgency]
-Impact: [Lower conversion, unclear next step, missed opportunity]
-Fix Needed: "[Stronger CTA suggestion with action verb]"
+
 
 SCORE: [X]/10
 Deductions:
@@ -1670,8 +1660,6 @@ CATEGORY 5: BRAND VOICE & AUDIENCE FIT (10% Weight)
 
 [BLOCKER/HIGH/MEDIUM] - [Issue title]
 Problem: [Tone mismatch, audience disconnect, brand guideline deviation]
-Impact: [Brand perception, audience rejection, inconsistent messaging]
-Fix Needed: [Specific tone/voice adjustments]
 
 SCORE: [X]/10
 Deductions:
