@@ -735,7 +735,7 @@ Format Type: [Auto-detect: Social Media Ad / Display Banner / Print Material]
 ═══════════════════════════════════════════════════
 YOUR CORE MISSION
 ═══════════════════════════════════════════════════
-Catch errors before launch. Be the last line of defense. Your job is to:
+Catch every errors before launch. Be the last line of defense. Your job is to:
 1. Identify BLOCKER issues that prevent approval
 2. Spot HIGH PRIORITY issues that need fixing
 3. Note MEDIUM PRIORITY improvements
@@ -824,21 +824,18 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **SECTION 1: TOP AREA - LOGO/BRANDING/HEADER**
 ───────────────────────────────────────────────────
-✓ **STRENGTHS:**
-• [What's working well - be specific]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Location:** [Specific area]
   **Problem:** [Detailed explanation with quoted text if applicable]
-  **Impact:** [Why this matters - brand credibility, user confusion, conversion loss]
   **Fix Needed:** [Exact action required]
 
 ───────────────────────────────────────────────────
 **SECTION 2: COPY QUALITY & CONTENT**
 ───────────────────────────────────────────────────
-✓ **STRENGTHS:**
-• [What's working well]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -850,8 +847,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **SECTION 3: DESIGN & VISUAL QUALITY**
 ───────────────────────────────────────────────────
-✓ **STRENGTHS:**
-• [What's working well]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -863,8 +859,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **SECTION 4: CTA & FOOTER ELEMENTS**
 ───────────────────────────────────────────────────
-✓ **STRENGTHS:**
-• [What's working well]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -1213,8 +1208,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **CATEGORY 1: HOOK & OPENING (25% Weight)**
 ───────────────────────────────────────────────────
-✓ **WHAT WORKS:**
-• [Specific strength in the opening/hook]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -1231,8 +1225,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **CATEGORY 2: VISUAL FLOW & PACING (20% Weight)**
 ───────────────────────────────────────────────────
-✓ **WHAT WORKS:**
-• [Specific strength in pacing/transitions]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -1248,8 +1241,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **CATEGORY 3: DIALOGUES & DELIVERY (20% Weight)**
 ───────────────────────────────────────────────────
-✓ **WHAT WORKS:**
-• [Specific dialogue strengths]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -1266,8 +1258,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **CATEGORY 4: ON-SCREEN TEXT, CAPTIONS & CTA (20% Weight)**
 ───────────────────────────────────────────────────
-✓ **WHAT WORKS:**
-• [Specific caption/CTA strengths]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -1284,8 +1275,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ───────────────────────────────────────────────────
 **CATEGORY 5: BRAND VOICE & TREND ALIGNMENT (15% Weight)**
 ───────────────────────────────────────────────────
-✓ **WHAT WORKS:**
-• [Specific brand/trend alignment strengths]
+• [If no issues: "✓ All good"]
 
 ✗ **ISSUES FOUND:**
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
@@ -1498,91 +1488,404 @@ Before finalizing, verify you have:
 Now analyze this reel/video script following this exact structure."""
         else:
             # Normal Poster Copy QC Prompt
-            prompt = f"""You are a very Senior and Creative Copy QC Analyst.
+            prompt = f"""You are a Senior Copy QC Analyst specializing in advertising poster copy. Your feedback must be specific, actionable, and focused on marketing effectiveness.
 
 Text Content: "{text}"
 {brand_section}
 
-Objective: Conduct an in-depth, professional QC of the copy. Evaluate grammar, clarity, tone, messaging, persuasion, CTA effectiveness, and overall brand alignment. Be balanced: acknowledge strengths, identify actionable issues, and quantify impact using a reliable scoring system.
-Check specially for any grammar mistake, spelling mistake, and header clarity.
-Analysis Categories & Weighted Scoring
+═══════════════════════════════════════════════════
+YOUR CORE MISSION
+═══════════════════════════════════════════════════
+Evaluate how this copy will perform as POSTER CONTENT. Consider:
 
-Language & Grammar (25%) – Grammar, spelling, punctuation, clarity, tone, and readability.
+Will the headline grab attention in 2-3 seconds?
+Is the message clear and instantly understandable?
+Does the copy work with visual hierarchy (headline > subhead > CTA)?
+Are there any grammar, spelling, or punctuation errors?
+Is the CTA compelling and action-oriented?
+Does it match brand voice while driving conversion?
 
-Messaging & Creativity (20%) – Originality, relevance, coherence, and alignment with brand voice.
+═══════════════════════════════════════════════════
+CRITICAL ERROR CATEGORIES (NEVER MISS THESE)
+═══════════════════════════════════════════════════
+🚨 BLOCKER ISSUES (Must fix before production):
 
-Persuasion & Value Proposition (20%) – Effectiveness in highlighting benefits, selling points, and emotional appeal.
+Grammar or spelling errors anywhere in copy
+Weak or confusing headline that lacks clarity
+Missing or unclear CTA
+Off-brand tone or messaging
+Copy too long for visual space (readability issues)
+Incorrect product names, prices, or claims
+Punctuation errors that change meaning
+Inconsistent capitalization in headlines/CTAs
 
-Call-to-Action (20%) – Clarity, urgency, visibility, and conversion potential.
+⚠️ HIGH PRIORITY (Fix before printing):
 
-Overall Impact & Brand Consistency (15%) – Professionalism, cohesiveness, trustworthiness, and tone consistency.
+Headline could be more attention-grabbing
+Subheadline doesn't support main message effectively
+CTA not action-oriented enough (generic wording)
+Copy tone doesn't match target audience
+Missing key benefit or value proposition
+Word choice could be stronger/clearer
+Copy length imbalanced (headline too long, body too short)
 
-Category Scoring (0–10):Reliable Rating System (0–10) and please dont score randomly be very effective and strict strict don't give high score untill and unless its that much effective and good and always give score according to said criterias and explain and why did u deduct score and what was the issue where u have deducted the score too
+📋 MEDIUM PRIORITY (Recommended improvements):
 
-0–3: Major issue; severely affects readability, clarity, or brand perception.
+Could use more emotional appeal
+Opportunity for stronger power words
+CTA urgency could be enhanced
+Minor stylistic improvements for flow
+Could better leverage social proof or benefits
 
-4–6: Moderate issue; noticeable, requires attention.
+═══════════════════════════════════════════════════
+ANALYSIS STRUCTURE (Exactly 5 Categories)
+═══════════════════════════════════════════════════
+CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
+Analyze:
+✓ Attention-grabbing: Does it stop viewers instantly?
+✓ Clarity: Message clear within 2-3 seconds?
+✓ Relevance: Speaks to target audience needs/pain points?
+✓ Length: Appropriate for poster format (not too long)?
+✓ Power: Uses strong, impactful words?
+CATEGORY 2: GRAMMAR & SPELLING (25% Weight)
+Analyze:
+✓ Spelling: Zero errors in all text elements?
+✓ Grammar: Proper sentence structure and word usage?
+✓ Punctuation: Correct use of commas, periods, apostrophes?
+✓ Capitalization: Consistent and appropriate style?
+✓ Typos: No overlooked mistakes in any section?
+CATEGORY 3: MESSAGE CLARITY & FLOW (20% Weight)
+Analyze:
+✓ Logical flow: Headline → Subhead → Body → CTA progression?
+✓ Simplicity: Easy to understand at a glance?
+✓ Coherence: All elements support single message?
+✓ Readability: Appropriate length and complexity for poster?
+✓ Word choice: Clear, specific, and impactful language?
+CATEGORY 4: CTA & CONVERSION ELEMENTS (15% Weight)
+Analyze:
+✓ CTA clarity: Clear action verb (Shop Now, Learn More, Get Started)?
+✓ Urgency: Creates motivation to act immediately?
+✓ Placement: Logical position in copy hierarchy?
+✓ Strength: Compelling enough to drive action?
+✓ Value: Communicates benefit of taking action?
+CATEGORY 5: BRAND VOICE & AUDIENCE FIT (10% Weight)
+Analyze:
+✓ Brand consistency: Tone aligns with brand guidelines?
+✓ Audience targeting: Language resonates with intended viewers?
+✓ Authenticity: Feels genuine, not forced or overly salesy?
+✓ Differentiation: Stands out from competitor messaging?
+✓ Emotional connection: Creates desired feeling or response?
+═══════════════════════════════════════════════════
+REQUIRED OUTPUT FORMAT (Copy Exactly)
+═══════════════════════════════════════════════════
+POSTER COPY QC ANALYSIS
+Copy Length: {len(copy_content.split())} words | Character Count: {len(copy_content)} characters
+───────────────────────────────────────────────────
+CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
+───────────────────────────────────────────────────
 
-7–8: Minor issue; small improvements will enhance impact.
+[If no issues: "✓ All good"]
 
-9–10: Excellent; fully meets expectations, no corrections needed.
+✗ ISSUES FOUND:
 
-Overall Copy Score: Weighted average → /10
+[BLOCKER/HIGH/MEDIUM] - [Issue title]
+Current Headline: "[Quote exact headline]"
+Problem: [Why this headline is weak, what's missing, clarity issues]
+Impact: [Will viewers ignore it? Does it grab attention? Brand impact?]
+Fix Needed: "[Specific suggestion for stronger headline]"
 
-Output Format (Copy Exactly)
+SCORE: [X]/10
+Deductions:
 
-Copy QC Analysis
+-[X] points: [Specific issue - e.g., "headline too generic, lacks hook"]
+-[X] points: [Specific issue - e.g., "unclear value proposition"]
 
-Findings:
+───────────────────────────────────────────────────
+CATEGORY 2: GRAMMAR & SPELLING (25% Weight)
+───────────────────────────────────────────────────
 
-[Category]: [One-line observation highlighting strength or issue]
+[If no issues: "✓ All good"]
 
-Problem: [Quote exact text, explain grammar, clarity, or messaging issue and why it matters]
+✗ ISSUES FOUND:
 
-Score (0–10):
+[BLOCKER/HIGH/MEDIUM] - [Issue title]
+Current Text: "[Quote exact problematic text]"
+Problem: [Grammar error, spelling mistake, punctuation issue]
+Impact: [Credibility loss, unprofessional appearance, confusion]
+Fix Needed: "[Exact correction with proper grammar/spelling]"
 
-[Category]: [One-line observation]
+SCORE: [X]/10
+Deductions:
 
-Problem: [Quote exact text, explain issue with context]
+-[X] points: [Specific issue - e.g., "spelling error in headline"]
+-[X] points: [Specific issue - e.g., "missing apostrophe in body copy"]
 
-Score (0–10):
+───────────────────────────────────────────────────
+CATEGORY 3: MESSAGE CLARITY & FLOW (20% Weight)
+───────────────────────────────────────────────────
 
-[Category]: [One-line observation]
+[If no issues: "✓ All good"]
 
-Problem: [Quote exact text, explain issue with context]
+✗ ISSUES FOUND:
 
-Score (0–10):
+[BLOCKER/HIGH/MEDIUM] - [Issue title]
+Current Copy: "[Quote relevant section]"
+Problem: [Clarity issue, flow problem, confusing structure, word choice]
+Impact: [Message confusion, reduced effectiveness, poor comprehension]
+Fix Needed: [Specific copy improvements for clarity]
 
-[Category]: [One-line observation]
+SCORE: [X]/10
+Deductions:
 
-Problem: [Quote exact text, explain issue with context]
+-[X] points: [Specific issue - e.g., "subhead doesn't support headline"]
+-[X] points: [Specific issue - e.g., "jargon reduces clarity"]
 
-Score (0–10):
+───────────────────────────────────────────────────
+CATEGORY 4: CTA & CONVERSION ELEMENTS (15% Weight)
+───────────────────────────────────────────────────
 
-[Category]: [One-line observation]
+[If no issues: "✓ All good"]
 
-Problem: [Quote exact text, explain issue with context]
+✗ ISSUES FOUND:
 
-Score (0–10):
+[BLOCKER/HIGH/MEDIUM] - [Issue title]
+Current CTA: "[Quote exact CTA text]"
+Problem: [Weak action word, unclear benefit, poor placement, no urgency]
+Impact: [Lower conversion, unclear next step, missed opportunity]
+Fix Needed: "[Stronger CTA suggestion with action verb]"
 
-Overall Copy Score: /10 (Weighted average based on category percentages)
+SCORE: [X]/10
+Deductions:
 
-Strict Rules & Best Practices
+-[X] points: [Specific issue - e.g., "CTA uses generic 'Click Here'"]
+-[X] points: [Specific issue - e.g., "no urgency or incentive"]
 
-Exactly 5 points, no more, no less.
+───────────────────────────────────────────────────
+CATEGORY 5: BRAND VOICE & AUDIENCE FIT (10% Weight)
+───────────────────────────────────────────────────
 
-Always quote exact problematic text when analyzing.
+[If no issues: "✓ All good"]
 
-Be critical but fair, professional, and precise.
+✗ ISSUES FOUND:
 
-Focus on grammar, clarity, tone, messaging, persuasion, and CTA effectiveness.
+[BLOCKER/HIGH/MEDIUM] - [Issue title]
+Problem: [Tone mismatch, audience disconnect, brand guideline deviation]
+Impact: [Brand perception, audience rejection, inconsistent messaging]
+Fix Needed: [Specific tone/voice adjustments]
 
-Include positive observations wherever applicable.
+SCORE: [X]/10
+Deductions:
 
-Do not suggest fixes—observations only.
+-[X] points: [Specific issue - e.g., "tone too formal for target audience"]
+-[X] points: [Specific issue - e.g., "doesn't match brand voice guidelines"]
 
-Ensure evaluation reflects how the copy will perform with the audience and in real campaigns.
-Be very strict and effective  don't give high score untill and unless its that much effective and good"""
+═══════════════════════════════════════════════════
+OVERALL COPY PERFORMANCE
+═══════════════════════════════════════════════════
+📊 WEIGHTED OVERALL SCORE: [X.X]/10
+Calculation:
+
+Headline Effectiveness (30%): [X]/10 × 0.30 = [X.XX]
+Grammar & Spelling (25%): [X]/10 × 0.25 = [X.XX]
+Message Clarity & Flow (20%): [X]/10 × 0.20 = [X.XX]
+CTA & Conversion (15%): [X]/10 × 0.15 = [X.XX]
+Brand Voice & Audience (10%): [X]/10 × 0.10 = [X.XX]
+Total: [X.X]/10
+
+🎯 PERFORMANCE PREDICTION:
+[Will this copy drive attention and action? Is it professional and error-free? Will the target audience connect with it? Why or why not?]
+═══════════════════════════════════════════════════
+PRIORITY ACTION ITEMS
+═══════════════════════════════════════════════════
+🚨 CRITICAL (Fix Before Production):
+
+[Most critical copy issue blocking production]
+[Second critical issue]
+
+⚠️ HIGH PRIORITY (Fix Before Printing):
+
+[Important issue affecting effectiveness]
+[Another important issue]
+
+📋 RECOMMENDED IMPROVEMENTS:
+
+[Enhancement for better performance]
+[Polish suggestion for engagement]
+
+───────────────────────────────────────────────────
+PRODUCTION STATUS: [BLOCKED / NEEDS REVISION / READY WITH NOTES / READY TO PRINT]
+───────────────────────────────────────────────────
+═══════════════════════════════════════════════════
+STRICT SCORING SYSTEM
+═══════════════════════════════════════════════════
+Start each category at 10/10, then deduct:
+Headline Effectiveness (30% weight):
+
+-4 points: Headline generic, boring, or confusing
+-3 points: Weak hook or unclear value proposition
+-2 points: Too long or doesn't match audience
+-1 point: Good but could be more impactful
+-1 point: Minor word choice improvements needed
+
+Grammar & Spelling (25% weight):
+
+-4 points: Multiple spelling/grammar errors
+-3 points: Spelling error in headline or CTA
+-3 points: Grammar error that changes meaning
+-2 points: Punctuation errors or inconsistent caps
+-1 point: Minor typo in body copy
+
+Message Clarity & Flow (20% weight):
+
+-3 points: Confusing message or poor logical flow
+-2 points: Subhead doesn't support headline
+-2 points: Copy too long or complex for poster format
+-1 point: Minor word choice or readability issues
+-1 point: Could be more concise
+
+CTA & Conversion Elements (15% weight):
+
+-4 points: Missing CTA or completely unclear
+-3 points: Weak CTA with generic wording
+-2 points: CTA lacks urgency or benefit
+-1 point: CTA placement could be better
+-1 point: Could be more action-oriented
+
+Brand Voice & Audience Fit (10% weight):
+
+-3 points: Significantly off-brand tone
+-2 points: Doesn't resonate with target audience
+-2 points: Too salesy or inauthentic
+-1 point: Minor tone adjustments needed
+-1 point: Could better match brand guidelines
+
+Score Interpretation:
+
+9-10: Excellent - Ready to print, high conversion potential
+7-8: Good - Minor tweaks for better performance
+5-6: Needs Work - Several improvements required
+3-4: Poor - Major copy revision needed
+0-2: Critical - Complete rewrite recommended
+
+═══════════════════════════════════════════════════
+QUALITY CONTROL RULES - NEVER VIOLATE
+═══════════════════════════════════════════════════
+✅ ALWAYS DO:
+
+Quote exact problematic copy text
+Check EVERY word for spelling/grammar
+Evaluate headline impact and clarity
+Verify CTA uses strong action verbs
+Assess copy length for poster readability
+Consider target audience language level
+Show weighted scoring calculation
+Think about visual hierarchy and flow
+
+❌ NEVER DO:
+
+Miss spelling or grammar errors (zero tolerance)
+Overlook weak or generic headlines
+Ignore CTA effectiveness (conversion critical)
+Skip brand voice verification
+Inflate scores without justification
+Be vague about specific fixes needed
+Forget to check product names/prices/claims
+Miss punctuation that changes meaning
+
+═══════════════════════════════════════════════════
+POSTER FORMAT-SPECIFIC CHECKS
+═══════════════════════════════════════════════════
+Social Media Posters (Instagram/Facebook):
+
+Headline: 5-10 words maximum
+Body copy: 15-30 words ideal
+CTA: Must be visible and clear
+Tone: Casual, conversational, engaging
+
+Display Banners (Digital Ads):
+
+Headline: Short and punchy (3-7 words)
+Body: Minimal text, focus on benefit
+CTA: Strong action verb required
+Message: Instant clarity critical
+
+Print Posters (Physical Materials):
+
+Headline: Large, bold, readable from distance
+Body: Concise supporting points only
+CTA: Clear instructions or contact info
+Copy: Professional polish essential
+
+Email/Newsletter Graphics:
+
+Headline: Curiosity-driven or benefit-focused
+Body: 2-3 short sentences maximum
+CTA: Button-ready text with urgency
+Tone: Matches email campaign voice
+
+═══════════════════════════════════════════════════
+COPY-SPECIFIC RED FLAGS TO CATCH
+═══════════════════════════════════════════════════
+Headline Problems:
+
+Generic phrases ("Best deals," "Quality products")
+Too long (over 12 words for poster)
+Unclear benefit or value proposition
+Boring or expected (no surprise factor)
+Uses passive voice instead of active
+
+Grammar Traps:
+
+Its vs. It's
+Your vs. You're
+Their/There/They're
+Affect vs. Effect
+Then vs. Than
+Comma splices and run-on sentences
+Missing or incorrect apostrophes
+
+Message Issues:
+
+Jargon or technical terms for general audience
+Conflicting or confusing messaging
+Too much information for poster format
+Buried benefit (not upfront)
+No clear differentiator
+
+CTA Failures:
+
+Generic wording ("Click Here," "Learn More" without context)
+No urgency or incentive
+Unclear what happens after action
+Multiple conflicting CTAs
+Passive language instead of command
+
+Brand Voice Problems:
+
+Tone too formal or casual for brand
+Inconsistent with other brand materials
+Doesn't speak to target demographic
+Overly salesy or pushy language
+
+═══════════════════════════════════════════════════
+FINAL CHECKLIST BEFORE SUBMITTING
+═══════════════════════════════════════════════════
+Before finalizing, verify you have:
+☐ Checked every single word for spelling
+☐ Verified grammar and punctuation throughout
+☐ Evaluated headline attention-grabbing power
+☐ Confirmed message clarity and flow
+☐ Assessed CTA strength and action orientation
+☐ Quoted exact problematic copy text
+☐ Shown weighted score calculation
+☐ Categorized all issues (BLOCKER/HIGH/MEDIUM)
+☐ Considered poster format constraints
+☐ Verified brand voice consistency
+☐ Checked product names, prices, claims accuracy
+☐ Given clear PRODUCTION STATUS
+═══════════════════════════════════════════════════
+REMEMBER: This copy will be read in 2-3 seconds by scrolling or passing viewers. Your job is to ensure it GRABS attention, COMMUNICATES clearly, and DRIVES action—all while being 100% error-free and on-brand. Be thorough, be critical, be specific.
+Now analyze this poster copy following this exact structure."""
 
         print(f"🤖 Sending to Groq Text API (Llama 3.3 70B)...")
         print(f"   Content Type: {'REEL/VIDEO SCRIPT' if is_reel else 'POSTER COPY'}")
