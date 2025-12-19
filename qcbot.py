@@ -1109,11 +1109,11 @@ def perform_text_qc(text, brand_context: str = "", is_reel: bool = False):
 ═══════════════════════════════════════════════════
 SCRIPT TO ANALYZE
 ═══════════════════════════════════════════════════
-**Script Length:** {len(script_content.split())} words
-**Estimated Duration:** {len(script_content.split()) / 2.5:.1f} seconds (at average pace)
+**Script Length:** {len(text.split())} words
+**Estimated Duration:** {len(text.split()) / 2.5:.1f} seconds (at average pace)
 {brand_section}
 **Script Content:**
-"{script_content}"
+"{text}"
 
 ═══════════════════════════════════════════════════
 YOUR CORE MISSION
@@ -1203,7 +1203,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ═══════════════════════════════════════════════════
 
 **REEL/VIDEO SCRIPT QC ANALYSIS**
-**Script Length:** {len(script_content.split())} words | **Est. Duration:** {len(script_content.split()) / 2.5:.1f}s
+**Script Length:** {len(text.split())} words | **Est. Duration:** {len(text.split()) / 2.5:.1f}s
 
 ───────────────────────────────────────────────────
 **CATEGORY 1: HOOK & OPENING (25% Weight)**
