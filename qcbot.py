@@ -1065,7 +1065,7 @@ Before finalizing, verify you have:
 
 **REMEMBER:** You are the last line of defense before this creative goes live. Be thorough, be specific, be consistent. Every error you catch saves the brand's reputation and marketing investment.
 
-Now analyze the image following this exact structure."""
+Now analyze the image following this exact structure and get them all done under 150-170 words."""
 
 
         completion = get_groq_client().chat.completions.create(
@@ -1485,7 +1485,7 @@ Before finalizing, verify you have:
 
 **REMEMBER:** This script will be PERFORMED on camera and watched by scrolling users. Your job is to ensure it STOPS the scroll, ENGAGES the viewer, and DRIVES action. Be specific, be critical, be helpful.
 
-Now analyze this reel/video script following this exact structure."""
+Now analyze this reel/video script following this exact structure  and get them all done under 150-170 words."""
         else:
             # Normal Poster Copy QC Prompt
             prompt = f"""You are a Senior Copy QC Analyst specializing in advertising poster copy. Your feedback must be specific, actionable, and focused on marketing effectiveness.
@@ -1885,7 +1885,7 @@ Before finalizing, verify you have:
 ☐ Given clear PRODUCTION STATUS
 ═══════════════════════════════════════════════════
 REMEMBER: This copy will be read in 2-3 seconds by scrolling or passing viewers. Your job is to ensure it GRABS attention, COMMUNICATES clearly, and DRIVES action—all while being 100% error-free and on-brand. Be thorough, be critical, be specific.
-Now analyze this poster copy following this exact structure."""
+Now analyze this poster copy following this exact structure  and get them all done under 150-170 words."""
 
         print(f"🤖 Sending to Groq Text API (Llama 3.3 70B)...")
         print(f"   Content Type: {'REEL/VIDEO SCRIPT' if is_reel else 'POSTER COPY'}")
