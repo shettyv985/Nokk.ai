@@ -728,7 +728,7 @@ def perform_image_qc_with_huggingface(image: Image.Image, brand_context: str = "
 ═══════════════════════════════════════════════════
 IMAGE SPECIFICATIONS
 ═══════════════════════════════════════════════════
-Dimensions: {image_width}×{image_height}px
+Image Details: {image.size[0]}×{image.size[1]}px
 Format Type: [Auto-detect: Social Media Ad / Display Banner / Print Material]
 {brand_section}
 
@@ -1943,57 +1943,135 @@ def post_comment_to_basecamp(pid, cid, text, token):
         quote_placeholders = {}
         for i, quote in enumerate(quotes):
             placeholder = f"___QUOTE_{i}___"
-            quote_placeholders[placeholder] = f'<span style="background:#fff3cd;color:#856404;padding:2px 5px;border-radius:3px;font-style:italic;">"{quote}"</span>'
+            # Highlighted quoted text - yellow background only for emphasis
+            quote_placeholders[placeholder] = f'<span style="background:#FFD700;color:#000000;padding:2px 6px;border-radius:3px;font-style:italic;font-weight:500;">"{quote}"</span>'
             formatted_text = formatted_text.replace(f'"{quote}"', placeholder, 1)
         
-        # Step 2: Convert **text** to bold
+        # Step 2: Convert **text** to bold (but NOT for section headers)
         def replace_bold(match):
             content = match.group(1)
-            keywords = ['Issue', 'Problem', 'Reason', 'Suggestion', 'What Works Well', 'Findings']
-            if any(kw in content for kw in keywords):
+            # Don't convert section headers - they'll be handled separately
+            section_headers = [
+                'VISUAL QC ANALYSIS REPORT', 'REEL/VIDEO SCRIPT QC ANALYSIS', 
+                'POSTER COPY QC ANALYSIS', 'SECTION 1:', 'SECTION 2:', 'SECTION 3:', 
+                'SECTION 4:', 'SECTION 5:', 'CATEGORY 1:', 'CATEGORY 2:', 'CATEGORY 3:', 
+                'CATEGORY 4:', 'CATEGORY 5:', 'PERFORMANCE RATINGS', 'SCORING BREAKDOWN',
+                'OVERALL SCRIPT PERFORMANCE', 'OVERALL COPY PERFORMANCE', 'PRIORITY ACTION ITEMS',
+                'APPROVAL STATUS', 'PRODUCTION STATUS', 'Image Dimensions', 'Script Length',
+                'Copy Length', 'BLOCKER', 'HIGH PRIORITY', 'MEDIUM', 'CRITICAL', 'RECOMMENDED IMPROVEMENTS'
+            ]
+            if any(header in content for header in section_headers):
                 return f'**{content}**'
             return f'<strong>{content}</strong>'
         
         formatted_text = re.sub(r'\*\*(.+?)\*\*', replace_bold, formatted_text)
         
-        # Step 3: Highlight key section labels
+        # Step 3: Highlight QC-specific keywords from the prompts
+        
+        # === VISUAL QC KEYWORDS ===
         keywords_map = {
-            r'\*\*Issue\*\*:': '<span style="background:#dc3545;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Issue</span>:',
-            r'\*\*Problem\*\*:': '<span style="background:#dc3545;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Problem</span>:',
-            r'\*\*Reason\*\*:': '<span style="background:#ffc107;color:#000;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Reason</span>:',
-            r'\*\*Suggestion\*\*:': '<span style="background:#28a745;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Suggestion</span>:',
-            r'\*\*What Works Well\*\*:': '<span style="background:#17a2b8;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">What Works Well</span>:',
-            r'\*\*Findings\*\*:': '<span style="background:#6c757d;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Findings</span>:',
+            # Section headers (Visual QC) - Bold colored text, no background
+            r'SECTION 1: TOP AREA - LOGO/BRANDING/HEADER': '<div style="color:#1E90FF;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">📍 SECTION 1: TOP AREA - LOGO/BRANDING/HEADER</div>',
+            r'SECTION 2: COPY QUALITY & CONTENT': '<div style="color:#1E90FF;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">✍️ SECTION 2: COPY QUALITY & CONTENT</div>',
+            r'SECTION 3: DESIGN & VISUAL QUALITY': '<div style="color:#1E90FF;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🎨 SECTION 3: DESIGN & VISUAL QUALITY</div>',
+            r'SECTION 4: CTA & FOOTER ELEMENTS': '<div style="color:#1E90FF;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🎯 SECTION 4: CTA & FOOTER ELEMENTS</div>',
+            r'SECTION 5: BRAND CONSISTENCY CHECK': '<div style="color:#1E90FF;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🏢 SECTION 5: BRAND CONSISTENCY CHECK</div>',
+            
+            # === REEL/VIDEO QC KEYWORDS ===
+            r'CATEGORY 1: HOOK & OPENING': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🎣 CATEGORY 1: HOOK & OPENING (25%)</div>',
+            r'CATEGORY 2: VISUAL FLOW & PACING': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🎬 CATEGORY 2: VISUAL FLOW & PACING (20%)</div>',
+            r'CATEGORY 3: DIALOGUES & DELIVERY': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🗣️ CATEGORY 3: DIALOGUES & DELIVERY (20%)</div>',
+            r'CATEGORY 4: ON-SCREEN TEXT, CAPTIONS & CTA': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">📱 CATEGORY 4: CAPTIONS & CTA (20%)</div>',
+            r'CATEGORY 5: BRAND VOICE & TREND ALIGNMENT': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🎭 CATEGORY 5: BRAND & TRENDS (15%)</div>',
+            
+            # === POSTER COPY QC KEYWORDS ===
+            r'CATEGORY 1: HEADLINE EFFECTIVENESS': '<div style="color:#32CD32;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">💡 CATEGORY 1: HEADLINE EFFECTIVENESS (30%)</div>',
+            r'CATEGORY 2: GRAMMAR & SPELLING': '<div style="color:#32CD32;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">✅ CATEGORY 2: GRAMMAR & SPELLING (25%)</div>',
+            r'CATEGORY 3: MESSAGE CLARITY & FLOW': '<div style="color:#32CD32;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">📝 CATEGORY 3: MESSAGE CLARITY & FLOW (20%)</div>',
+            r'CATEGORY 4: CTA & CONVERSION ELEMENTS': '<div style="color:#32CD32;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🚀 CATEGORY 4: CTA & CONVERSION (15%)</div>',
+            r'CATEGORY 5: BRAND VOICE & AUDIENCE FIT': '<div style="color:#32CD32;font-weight:bold;margin:15px 0 8px 0;font-size:16px;">🎯 CATEGORY 5: BRAND & AUDIENCE (10%)</div>',
+            
+            # Common issue labels - Background ONLY for critical tags
+            r'\[BLOCKER\]': '<span style="background:#DC143C;color:#FFFFFF;padding:3px 8px;border-radius:4px;font-weight:bold;font-size:12px;">🚨 BLOCKER</span>',
+            r'\[HIGH\]': '<span style="background:#FF8C00;color:#FFFFFF;padding:3px 8px;border-radius:4px;font-weight:bold;font-size:12px;">⚠️ HIGH</span>',
+            r'\[MEDIUM\]': '<span style="background:#FFD700;color:#000000;padding:3px 8px;border-radius:4px;font-weight:bold;font-size:12px;">📋 MEDIUM</span>',
+            
+            # Issue components - Colored text only
+            r'Current Text:': '<span style="color:#1E90FF;font-weight:bold;">📄 Current Text:</span>',
+            r'Current Headline:': '<span style="color:#1E90FF;font-weight:bold;">💬 Current Headline:</span>',
+            r'Current Script:': '<span style="color:#1E90FF;font-weight:bold;">📜 Current Script:</span>',
+            r'Current Dialogue:': '<span style="color:#1E90FF;font-weight:bold;">💭 Current Dialogue:</span>',
+            r'Current CTA:': '<span style="color:#1E90FF;font-weight:bold;">🎯 Current CTA:</span>',
+            r'Current Copy:': '<span style="color:#1E90FF;font-weight:bold;">✏️ Current Copy:</span>',
+            r'Problem:': '<span style="color:#DC143C;font-weight:bold;">❌ Problem:</span>',
+            r'Fix Needed:': '<span style="color:#32CD32;font-weight:bold;">🔧 Fix Needed:</span>',
+            r'Impact:': '<span style="color:#FF8C00;font-weight:bold;">⚡ Impact:</span>',
+            r'Location:': '<span style="color:#9370DB;font-weight:bold;">📍 Location:</span>',
+            r'Element:': '<span style="color:#9370DB;font-weight:bold;">🎨 Element:</span>',
+            
+            # Scoring sections - Colored text
+            r'SCORE:': '<div style="color:#1E90FF;font-weight:bold;font-size:15px;margin:10px 0 5px 0;">📊 SCORE:</div>',
+            r'Deductions:': '<div style="color:#FF6347;font-weight:bold;margin:8px 0 4px 0;">➖ Deductions:</div>',
+            r'Calculation:': '<div style="color:#32CD32;font-weight:bold;margin:8px 0 4px 0;">🧮 Calculation:</div>',
+            
+            # Main report headers - Bold colored text
+            r'VISUAL QC ANALYSIS REPORT': '<div style="color:#4169E1;font-weight:bold;text-align:center;margin:10px 0 15px 0;font-size:20px;letter-spacing:1px;">🔍 VISUAL QC ANALYSIS REPORT</div>',
+            r'REEL/VIDEO SCRIPT QC ANALYSIS': '<div style="color:#FF6347;font-weight:bold;text-align:center;margin:10px 0 15px 0;font-size:20px;letter-spacing:1px;">🎬 REEL/VIDEO SCRIPT QC ANALYSIS</div>',
+            r'POSTER COPY QC ANALYSIS': '<div style="color:#32CD32;font-weight:bold;text-align:center;margin:10px 0 15px 0;font-size:20px;letter-spacing:1px;">📝 POSTER COPY QC ANALYSIS</div>',
+            
+            # Performance sections - Colored text
+            r'PERFORMANCE RATINGS & SCORING BREAKDOWN': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 10px 0;font-size:17px;">📈 PERFORMANCE RATINGS & SCORING BREAKDOWN</div>',
+            r'OVERALL SCRIPT PERFORMANCE': '<div style="color:#FF6347;font-weight:bold;margin:15px 0 10px 0;font-size:17px;">📊 OVERALL SCRIPT PERFORMANCE</div>',
+            r'OVERALL COPY PERFORMANCE': '<div style="color:#32CD32;font-weight:bold;margin:15px 0 10px 0;font-size:17px;">📊 OVERALL COPY PERFORMANCE</div>',
+            
+            # Priority sections - Colored text
+            r'PRIORITY ACTION ITEMS': '<div style="color:#9370DB;font-weight:bold;margin:15px 0 10px 0;font-size:17px;">📋 PRIORITY ACTION ITEMS</div>',
+            r'🚨 CRITICAL \(Must Fix Before': '<div style="color:#DC143C;font-weight:bold;margin:12px 0 6px 0;font-size:15px;">🚨 CRITICAL (Must Fix Before',
+            r'⚠️ HIGH PRIORITY \(': '<div style="color:#FF8C00;font-weight:bold;margin:12px 0 6px 0;font-size:15px;">⚠️ HIGH PRIORITY (',
+            r'📋 RECOMMENDED IMPROVEMENTS:': '<div style="color:#1E90FF;font-weight:bold;margin:12px 0 6px 0;font-size:15px;">📋 RECOMMENDED IMPROVEMENTS:</div>',
+            
+            # Status indicators - Background for final approval status only
+            r'APPROVAL STATUS:': '<div style="background:#32CD32;color:#FFFFFF;padding:8px 15px;border-radius:6px;font-weight:bold;text-align:center;margin:15px 0;font-size:15px;">✅ APPROVAL STATUS:</div>',
+            r'PRODUCTION STATUS:': '<div style="background:#32CD32;color:#FFFFFF;padding:8px 15px;border-radius:6px;font-weight:bold;text-align:center;margin:15px 0;font-size:15px;">✅ PRODUCTION STATUS:</div>',
+            
+            # Specific scores with icons - Colored text
+            r'📝 COPY QUALITY:': '<span style="color:#1E90FF;font-weight:bold;font-size:15px;">📝 COPY QUALITY:</span>',
+            r'🎨 DESIGN & LAYOUT:': '<span style="color:#1E90FF;font-weight:bold;font-size:15px;">🎨 DESIGN & LAYOUT:</span>',
+            r'🎯 CTA EFFECTIVENESS:': '<span style="color:#1E90FF;font-weight:bold;font-size:15px;">🎯 CTA EFFECTIVENESS:</span>',
+            r'🏢 BRANDING CONSISTENCY:': '<span style="color:#1E90FF;font-weight:bold;font-size:15px;">🏢 BRANDING CONSISTENCY:</span>',
+            r'⭐ OVERALL IMPACT:': '<span style="color:#FFD700;font-weight:bold;font-size:15px;">⭐ OVERALL IMPACT:</span>',
         }
         
+        # Apply keyword highlighting
         for pattern, replacement in keywords_map.items():
-            formatted_text = re.sub(pattern, replacement, formatted_text)
-        
-        # Non-bold versions
-        keywords_map_plain = {
-            r'Issue:': '<span style="background:#dc3545;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Issue</span>:',
-            r'Problem:': '<span style="background:#dc3545;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Problem</span>:',
-            r'Reason:': '<span style="background:#ffc107;color:#000;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Reason</span>:',
-            r'Suggestion:': '<span style="background:#28a745;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Suggestion</span>:',
-            r'What Works Well:': '<span style="background:#17a2b8;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">What Works Well</span>:',
-            r'Findings:': '<span style="background:#6c757d;color:#fff;padding:3px 8px;border-radius:4px;font-weight:bold;display:inline-block;margin:2px 0;">Findings</span>:',
-        }
-        
-        for pattern, replacement in keywords_map_plain.items():
-            formatted_text = re.sub(pattern, replacement, formatted_text)
+            formatted_text = re.sub(pattern, replacement, formatted_text, flags=re.IGNORECASE)
         
         # Step 4: Restore quoted text
         for placeholder, html in quote_placeholders.items():
             formatted_text = formatted_text.replace(placeholder, html)
         
         # Step 5: Convert remaining markdown
-        formatted_text = re.sub(r'### (.+)', r'<div style="font-size:16px;font-weight:bold;margin:10px 0 5px 0;color:#f8f9fa;">\1</div>', formatted_text)
-        formatted_text = re.sub(r'^• (.+)$', r'&nbsp;&nbsp;&nbsp;• \1', formatted_text, flags=re.MULTILINE)
-        formatted_text = re.sub(r'^(\d+)\. ', r'<br><strong>\1.</strong> ', formatted_text, flags=re.MULTILINE)
+        # Divider lines
+        formatted_text = re.sub(r'═+', '<hr style="border:none;border-top:2px solid #6495ED;margin:15px 0;">', formatted_text)
+        formatted_text = re.sub(r'─+', '<hr style="border:none;border-top:1px dashed #9370DB;margin:10px 0;">', formatted_text)
+        
+        # Bullet points with better styling
+        formatted_text = re.sub(r'^• (.+)$', r'<div style="margin-left:20px;margin-bottom:6px;">▪️ \1</div>', formatted_text, flags=re.MULTILINE)
+        
+        # Numbered lists
+        formatted_text = re.sub(r'^(\d+)\. ', r'<div style="margin-left:20px;margin-bottom:6px;"><strong style="color:#4169E1;">\1.</strong> ', formatted_text, flags=re.MULTILINE)
+        
+        # Convert newlines
         formatted_text = formatted_text.replace('\n', '<br>')
         
-        # Step 6: Final HTML wrapper
-        html_style = "font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#f8f9fa;background:#2c3e50;padding:24px;border-radius:10px;line-height:1.9;box-shadow:0 2px 8px rgba(0,0,0,0.1);"
+        # Step 6: Final HTML wrapper with improved styling
+        html_style = """
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            padding: 20px;
+        """
+        
         html = f'<div style="{html_style}">\n{formatted_text}\n</div>'
         
         r = requests.post(
