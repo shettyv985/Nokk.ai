@@ -819,7 +819,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ═══════════════════════════════════════════════════
 
 **VISUAL QC ANALYSIS REPORT**
-**Image Dimensions:** {image_width}×{image_height}px
+**Image Dimensions:** {image.size[0]}×{image.size[1]}px
 
 ───────────────────────────────────────────────────
 **SECTION 1: TOP AREA - LOGO/BRANDING/HEADER**
