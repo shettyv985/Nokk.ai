@@ -1541,7 +1541,7 @@ You MUST analyze THREE separate elements:
 
 For EACH element, check:
 ✓ Attention-grabbing power (Headline)
-✓ Clarity and value communication (Main Copy)
+✓ Attention-grabbing Story telling of USP and should have Clarity and value communication (Main Copy)
 ✓ Support and reinforcement (Subcopy)
 ✓ Appropriate length for poster format
 ✓ Strong, impactful word choices
@@ -1591,19 +1591,19 @@ CATEGORY 1: COPY EFFECTIVENESS - ALL ELEMENTS (30% Weight)
 ✓ **WHAT WORKS:** [If good] OR ✗ **ISSUES:**
 • **Current Headline:** "[Quote exact headline text]"
 • **Problem:** [Why weak, what's missing, clarity issues]
-• **Impact:** [Effect on attention and engagement]
+
 
 **1B. MAIN COPY/PRIMARY TEXT ANALYSIS:**
 ✓ **WHAT WORKS:** [If good] OR ✗ **ISSUES:**
 • **Current Main Copy:** "[Quote exact main copy text]"
-• **Problem:** [Value communication issues, clarity problems]
-• **Impact:** [Effect on message understanding]
+• **Problem:** [Value communication issues, Why weak, what's missing, clarity problems]
+
 
 **1C. SUBCOPY/SUPPORTING TEXT ANALYSIS:**
 ✓ **WHAT WORKS:** [If good] OR ✗ **ISSUES:**
 • **Current Subcopy:** "[Quote exact subcopy text]"
 • **Problem:** [How it fails to support main message]
-• **Impact:** [Effect on overall effectiveness]
+
 
 **📊 CATEGORY 1 SCORE: [X]/10**
 **Deductions:**
@@ -1620,7 +1620,7 @@ CATEGORY 2: GRAMMAR & SPELLING (25% Weight)
   **Location:** [Headline/Main Copy/Subcopy/CTA]
   **Current Text:** "[Quote exact problematic text]"
   **Problem:** [Grammar error, spelling mistake, punctuation issue]
-  **Fix Needed:** "[Corrected text]"
+
 
 **📊 CATEGORY 2 SCORE: [X]/10**
 **Deductions:**
@@ -1634,7 +1634,6 @@ CATEGORY 3: MESSAGE CLARITY & FLOW (20% Weight)
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current Copy:** "[Quote relevant section]"
   **Problem:** [Clarity issue, flow problem, confusing structure]
-  **Impact:** [How it affects understanding]
 
 **📊 CATEGORY 3 SCORE: [X]/10**
 **Deductions:**
@@ -1648,8 +1647,7 @@ CATEGORY 4: CTA & CONVERSION ELEMENTS (15% Weight)
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current CTA:** "[Quote exact CTA text]"
   **Problem:** [Weak action word, no urgency, unclear benefit]
-  **Impact:** [Effect on conversion potential]
-  **Fix Needed:** [Stronger CTA suggestion]
+
 
 **📊 CATEGORY 4 SCORE: [X]/10**
 **Deductions:**
@@ -1662,7 +1660,7 @@ CATEGORY 5: BRAND VOICE & AUDIENCE FIT (10% Weight)
 
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Problem:** [Tone mismatch, audience disconnect, brand deviation]
-  **Impact:** [Effect on brand perception]
+
 
 **📊 CATEGORY 5 SCORE: [X]/10**
 **Deductions:**
