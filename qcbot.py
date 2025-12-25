@@ -1847,7 +1847,7 @@ Now analyze this poster copy following this exact structure."""
         completion = get_groq_client().chat.completions.create(
             model="meta-llama/llama-4-scout-17b-16e-instruct",
             messages=[{"role": "user", "content": prompt}],
-            max_tokens=600,
+            max_tokens=1000,
             temperature=0.3
         )
         
