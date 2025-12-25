@@ -1583,7 +1583,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 ═══════════════════════════════════════════════════
 
 **POSTER COPY QC ANALYSIS**
-**Copy Length:** {len(text_content.split())} words | **Character Count:** {len(text_content)} characters
+**Copy Length:** {len(text.split())} words | **Character Count:** {len(text)} characters
 
 ───────────────────────────────────────────────────
 **CATEGORY 1: COPY EFFECTIVENESS - ALL ELEMENTS (30% Weight)**
