@@ -1534,7 +1534,7 @@ Could better leverage social proof or benefits
 ═══════════════════════════════════════════════════
 ANALYSIS STRUCTURE (Exactly 5 Categories)
 ═══════════════════════════════════════════════════
-CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
+CATEGORY 1: HEADLINE , MAIN COPY, SUB COPY  EFFECTIVENESS (30% Weight)
 Analyze:
 ✓ Attention-grabbing: Does it stop viewers instantly?
 ✓ Clarity: Message clear within 2-3 seconds?
@@ -1575,7 +1575,7 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 POSTER COPY QC ANALYSIS
 Copy Length: {len(text.split())} words | Character Count: {len(text)} characters
 ───────────────────────────────────────────────────
-CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
+CATEGORY 1: HEADLINE , MAIN COPY, SUB COPY  EFFECTIVENESS (30% Weight)
 ───────────────────────────────────────────────────
 
 [If no issues: "✓ All good"]
@@ -1586,11 +1586,22 @@ CATEGORY 1: HEADLINE EFFECTIVENESS (30% Weight)
 Current Headline: "[Quote exact headline]"
 Problem: [Why this headline is weak, what's missing, clarity issues]
 
+Current Copy/Main Copy: "[Quote exact headline]"
+Problem: [Why this Copy/Main Copy is weak, what's missing, clarity issues]
 
+Current Sub Copy: "[Quote exact headline]"
+Problem: [Why this Sub Copy is weak, what's missing, clarity issues]         
+          
 SCORE: [X]/10
 Deductions:
 
 -[X] points: [Specific issue - e.g., "headline too generic, lacks hook"]
+-[X] points: [Specific issue - e.g., "unclear value proposition"]
+
+-[X] points: [Specific issue - e.g., "Copy/Main Copy too generic, lacks hook"]
+-[X] points: [Specific issue - e.g., "unclear value proposition"]
+
+-[X] points: [Specific issue - e.g., "Sub Copy too generic, lacks hook"]
 -[X] points: [Specific issue - e.g., "unclear value proposition"]
 
 ───────────────────────────────────────────────────
@@ -1609,7 +1620,7 @@ Problem: [Grammar error, spelling mistake, punctuation issue]
 SCORE: [X]/10
 Deductions:
 
--[X] points: [Specific issue - e.g., "spelling error in headline"]
+-[X] points: [Specific issue - e.g., "spelling error in headline,Copy/Main Copy,Sub Copy"]
 -[X] points: [Specific issue - e.g., "missing apostrophe in body copy"]
 
 ───────────────────────────────────────────────────
@@ -1673,7 +1684,7 @@ OVERALL COPY PERFORMANCE
 📊 WEIGHTED OVERALL SCORE: [X.X]/10
 Calculation:
 
-Headline Effectiveness (30%): [X]/10 × 0.30 = [X.XX]
+Headline,  Copy/Main Copy, Sub Copy Effectiveness (30%): [X]/10 × 0.30 = [X.XX]
 Grammar & Spelling (25%): [X]/10 × 0.25 = [X.XX]
 Message Clarity & Flow (20%): [X]/10 × 0.20 = [X.XX]
 CTA & Conversion (15%): [X]/10 × 0.15 = [X.XX]
@@ -1709,7 +1720,7 @@ STRICT SCORING SYSTEM
 Start each category at 10/10, then deduct:
 Headline Effectiveness (30% weight):
 
--4 points: Headline generic, boring, or confusing
+-4 points: Headline,Copy/Main Copy,Sub Copy generic, boring, or confusing
 -3 points: Weak hook or unclear value proposition
 -2 points: Too long or doesn't match audience
 -1 point: Good but could be more impactful
