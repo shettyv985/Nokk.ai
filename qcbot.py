@@ -1582,13 +1582,11 @@ Analyze:
 REQUIRED OUTPUT FORMAT (Copy Exactly)
 ═══════════════════════════════════════════════════
 
-**POSTER COPY QC ANALYSIS**
-**Copy Length:** {len(text.split())} words | **Character Count:** {len(text)} characters
-
+POSTER COPY QC ANALYSIS
+Copy Length: {len(text.split())} words | Character Count: {len(text)} characters
 ───────────────────────────────────────────────────
-**CATEGORY 1: COPY EFFECTIVENESS - ALL ELEMENTS (30% Weight)**
+CATEGORY 1: COPY EFFECTIVENESS - ALL ELEMENTS (30% Weight)
 ───────────────────────────────────────────────────
-
 **1A. HEADLINE ANALYSIS:**
 ✓ **WHAT WORKS:** [If good] OR ✗ **ISSUES:**
 • **Current Headline:** "[Quote exact headline text]"
@@ -1612,9 +1610,8 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 • -[X] points: [Specific headline issue]
 • -[X] points: [Specific main copy issue]
 • -[X] points: [Specific subcopy issue]
-
 ───────────────────────────────────────────────────
-**CATEGORY 2: GRAMMAR & SPELLING (25% Weight)**
+CATEGORY 2: GRAMMAR & SPELLING (25% Weight)
 ───────────────────────────────────────────────────
 
 ✓ **ALL GOOD** OR ✗ **ISSUES FOUND:**
@@ -1628,9 +1625,8 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 **📊 CATEGORY 2 SCORE: [X]/10**
 **Deductions:**
 • -[X] points: [Specific issue with location]
-
 ───────────────────────────────────────────────────
-**CATEGORY 3: MESSAGE CLARITY & FLOW (20% Weight)**
+CATEGORY 3: MESSAGE CLARITY & FLOW (20% Weight)
 ───────────────────────────────────────────────────
 
 ✓ **ALL GOOD** OR ✗ **ISSUES FOUND:**
@@ -1643,9 +1639,8 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 **📊 CATEGORY 3 SCORE: [X]/10**
 **Deductions:**
 • -[X] points: [Specific clarity/flow issue]
-
 ───────────────────────────────────────────────────
-**CATEGORY 4: CTA & CONVERSION ELEMENTS (15% Weight)**
+CATEGORY 4: CTA & CONVERSION ELEMENTS (15% Weight)
 ───────────────────────────────────────────────────
 
 ✓ **ALL GOOD** OR ✗ **ISSUES FOUND:**
@@ -1659,9 +1654,8 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 **📊 CATEGORY 4 SCORE: [X]/10**
 **Deductions:**
 • -[X] points: [Specific CTA issue]
-
 ───────────────────────────────────────────────────
-**CATEGORY 5: BRAND VOICE & AUDIENCE FIT (10% Weight)**
+CATEGORY 5: BRAND VOICE & AUDIENCE FIT (10% Weight)
 ───────────────────────────────────────────────────
 
 ✓ **ALL GOOD** OR ✗ **ISSUES FOUND:**
@@ -1841,11 +1835,11 @@ Before finalizing, verify you have:
 
 ═══════════════════════════════════════════════════
 
-**CRITICAL INSTRUCTION:** You MUST analyze Category 1 in THREE separate sub-sections (1A: Headline, 1B: Main Copy, 1C: Subcopy). Never skip any of these elements. Always quote the exact text from each section.
+**CRITICAL INSTRUCTION:** You MUST analyze Category 1 in THREE separate sub-sections (1A: Headline, 1B: Main Copy/Copy, 1C: Subcopy). Never skip any of these elements. Always quote the exact text from each section.
 
-**WORD LIMIT:** Keep your entire analysis under 150-170 words while maintaining all required sections and specificity.
+**WORD LIMIT:** Keep your entire analysis under 170-200 words while maintaining all required sections and specificity.
 
-Now analyze this poster copy following this exact structure. Remember: analyze headline, main copy, and subcopy SEPARATELY in Category 1."""
+Now analyze this poster copy following this exact structure."""
 
         print(f"🤖 Sending to Groq Text API (Llama 3.3 70B)...")
         print(f"   Content Type: {'REEL/VIDEO SCRIPT' if is_reel else 'POSTER COPY'}")
@@ -1916,7 +1910,7 @@ def post_comment_to_basecamp(pid, cid, text, token):
         for i, quote in enumerate(quotes):
             placeholder = f"___QUOTE_{i}___"
             # Highlighted quoted text - yellow background only for emphasis
-            quote_placeholders[placeholder] = f'<span style="background:#FFD700;color:#000000;padding:2px 6px;border-radius:3px;font-style:italic;font-weight:500;">"{quote}"</span>'
+            quote_placeholders[placeholder] = f'<span style="background:#FFD700;color:#993838;padding:2px 6px;border-radius:3px;font-style:italic;font-weight:500;">"{quote}"</span>'
             formatted_text = formatted_text.replace(f'"{quote}"', placeholder, 1)
         
         # Step 2: Convert **text** to bold (but NOT for section headers)
@@ -2081,7 +2075,7 @@ def post_queue_notification(pid, cid, position, token):
     try:
         url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{pid}/recordings/{cid}/comments.json"
         
-        html = f"""<div style="font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#f8f9fa;background:#2c3e50;padding:20px;border-radius:10px;text-align:center;">
+        html = f"""<div style="font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#784067;background:#2c3e50;padding:20px;border-radius:10px;text-align:center;">
 <div style="font-size:48px;margin-bottom:10px;">⏳</div>
 <div style="font-size:18px;font-weight:bold;margin-bottom:10px;">Your QC request is queued</div>
 <div style="font-size:32px;font-weight:bold;color:#3498db;margin:15px 0;">Position: #{position}</div>
@@ -2114,7 +2108,7 @@ def post_processing_notification(pid, cid, token):
     try:
         url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{pid}/recordings/{cid}/comments.json"
         
-        html = f"""<div style="font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#f8f9fa;background:#27ae60;padding:20px;border-radius:10px;text-align:center;">
+        html = f"""<div style="font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#784067;background:#27ae60;padding:20px;border-radius:10px;text-align:center;">
 <div style="font-size:48px;margin-bottom:10px;">🤖</div>
 <div style="font-size:18px;font-weight:bold;">Your QC analysis is starting now...</div>
 </div>"""
