@@ -2263,12 +2263,39 @@ def basecamp_webhook():
         print(f"Project ID: {pid}")
         print(f"Card ID: {card_id}")
 
-        # Get project configuration
+        # ==================== CRITICAL FIX ====================
+        # Get project configuration - REJECT if project not found
         project_config = get_project_config(pid)
-        if project_config:
-            brand_context = project_config["brand_context"]
-        else:
-            brand_context = ""
+        if not project_config:
+            error_msg = f"""❌ **UNSUPPORTED PROJECT**
+
+This project (ID: {pid}) is not configured in the QC Bot.
+
+**Supported Projects:**
+{chr(10).join([f"• {p['name']} (ID: {p_id})" for p_id, p in PROJECTS.items()])}
+
+Please contact the bot administrator to add this project."""
+            
+            print(f"❌ REJECTED: Unsupported project ID {pid}")
+            
+            # Post error message to Basecamp
+            token = get_access_token()
+            if token:
+                post_comment_to_basecamp(pid, card_id, error_msg, token)
+            
+            return jsonify({
+                "status": "rejected", 
+                "reason": "unsupported_project",
+                "project_id": pid
+            }), 400
+        
+        # Get brand context for valid project
+        brand_context = project_config["brand_context"]
+        project_name = project_config["name"]
+        
+        print(f"✅ Project validated: {project_name}")
+        print(f"📋 Brand context loaded: {len(brand_context)} chars")
+        # ==================== END CRITICAL FIX ====================
 
         # Extract URLs and user context
         urls = extract_urls(content_raw)
@@ -2295,12 +2322,12 @@ def basecamp_webhook():
         )
         
         # Process synchronously (Render compatible)
-        print(f"🔄 Processing task synchronously...")
+        print(f"🔄 Processing task synchronously for {project_name}...")
         process_qc_task(task)
         print("="*60)
-        print(f"✅ WEBHOOK COMPLETED - Task processed synchronously")
+        print(f"✅ WEBHOOK COMPLETED - Task processed for {project_name}")
         print("="*60 + "\n")
-        return jsonify({"status": "processed"}), 200
+        return jsonify({"status": "processed", "project": project_name}), 200
 
     except Exception as e:
         print(f"❌ WEBHOOK ERROR: {e}")
