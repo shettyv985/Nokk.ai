@@ -2218,6 +2218,88 @@ def queue_worker():
             with processing_lock:
                 is_processing = False
                 current_task = None
+
+def validate_card_table(project_id, card_id, token):
+    """
+    Validate that the card belongs to the correct card table for the project.
+    Returns (is_valid, card_table_id, error_message)
+    """
+    try:
+        # Get card details to find its parent card table
+        url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{card_id}.json"
+        r = requests.get(
+            url,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=15
+        )
+        
+        if not r.ok:
+            return False, None, f"Failed to fetch card details: {r.status_code}"
+        
+        card_data = r.json()
+        
+        # Navigate up to find the card table
+        # Card → Column → Card Table
+        parent = card_data.get("parent")
+        if not parent:
+            return False, None, "Card has no parent (not in a card table)"
+        
+        # Get the column (parent of the card)
+        column_id = parent.get("id")
+        if not column_id:
+            return False, None, "Could not determine column ID"
+        
+        # Get column details to find card table
+        column_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{column_id}.json"
+        col_r = requests.get(
+            column_url,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=15
+        )
+        
+        if not col_r.ok:
+            return False, None, f"Failed to fetch column details: {col_r.status_code}"
+        
+        column_data = col_r.json()
+        
+        # Get the card table (parent of the column)
+        card_table_parent = column_data.get("parent")
+        if not card_table_parent:
+            return False, None, "Column has no parent card table"
+        
+        actual_card_table_id = card_table_parent.get("id")
+        if not actual_card_table_id:
+            return False, None, "Could not determine card table ID"
+        
+        # Get expected card table for this project
+        project_config = get_project_config(project_id)
+        if not project_config:
+            return False, None, f"Project {project_id} not configured"
+        
+        expected_card_table_id = project_config.get("card_table_id")
+        if not expected_card_table_id:
+            return False, None, f"No card table configured for project {project_config['name']}"
+        
+        # Validate match
+        if actual_card_table_id != expected_card_table_id:
+            project_name = project_config["name"]
+            return False, actual_card_table_id, f"""❌ **WRONG CARD TABLE**
+
+This card is in the wrong location for {project_name} QC.
+
+**Expected Card Table ID:** {expected_card_table_id}
+**Actual Card Table ID:** {actual_card_table_id}
+
+Please move this card to the correct QC board for {project_name}."""
+        
+        print(f"✅ Card table validated: {actual_card_table_id} matches expected")
+        return True, actual_card_table_id, None
+        
+    except Exception as e:
+        error_msg = f"Card table validation error: {type(e).__name__}: {e}"
+        print(f"✗ {error_msg}")
+        traceback.print_exc()
+        return False, None, error_msg
 # ==================== WEBHOOK ====================
 @app.route("/webhook/basecamp", methods=["POST"])
 def basecamp_webhook():
@@ -2263,8 +2345,13 @@ def basecamp_webhook():
         print(f"Project ID: {pid}")
         print(f"Card ID: {card_id}")
 
-        # ==================== CRITICAL FIX ====================
-        # Get project configuration - REJECT if project not found
+        # Get access token first
+        token = get_access_token()
+        if not token:
+            print("❌ Failed to get access token")
+            return jsonify({"error": "auth_failed"}), 500
+
+        # ==================== VALIDATION STEP 1: PROJECT ====================
         project_config = get_project_config(pid)
         if not project_config:
             error_msg = f"""❌ **UNSUPPORTED PROJECT**
@@ -2277,11 +2364,7 @@ This project (ID: {pid}) is not configured in the QC Bot.
 Please contact the bot administrator to add this project."""
             
             print(f"❌ REJECTED: Unsupported project ID {pid}")
-            
-            # Post error message to Basecamp
-            token = get_access_token()
-            if token:
-                post_comment_to_basecamp(pid, card_id, error_msg, token)
+            post_comment_to_basecamp(pid, card_id, error_msg, token)
             
             return jsonify({
                 "status": "rejected", 
@@ -2289,13 +2372,49 @@ Please contact the bot administrator to add this project."""
                 "project_id": pid
             }), 400
         
-        # Get brand context for valid project
-        brand_context = project_config["brand_context"]
         project_name = project_config["name"]
-        
         print(f"✅ Project validated: {project_name}")
+
+        # ==================== VALIDATION STEP 2: CARD TABLE ====================
+        is_valid_table, actual_table_id, table_error = validate_card_table(pid, card_id, token)
+        
+        if not is_valid_table:
+            error_msg = table_error or f"""❌ **CARD TABLE VALIDATION FAILED**
+
+Unable to verify this card is in the correct QC board for {project_name}.
+
+**Project:** {project_name}
+**Expected Card Table ID:** {project_config.get('card_table_id')}
+**Actual Card Table ID:** {actual_table_id or 'Unknown'}
+
+Please ensure:
+1. The card is in the correct project
+2. The card is in the designated QC board/column
+3. The card table is properly configured
+
+Contact administrator if this error persists."""
+            
+            print(f"❌ REJECTED: Wrong card table for {project_name}")
+            print(f"   Expected: {project_config.get('card_table_id')}")
+            print(f"   Actual: {actual_table_id}")
+            
+            post_comment_to_basecamp(pid, card_id, error_msg, token)
+            
+            return jsonify({
+                "status": "rejected",
+                "reason": "wrong_card_table",
+                "project": project_name,
+                "expected_table": project_config.get('card_table_id'),
+                "actual_table": actual_table_id
+            }), 400
+        
+        print(f"✅ Card table validated: {actual_table_id}")
+        # ==================== END VALIDATION ====================
+
+        # Get brand context for valid project + card table
+        brand_context = project_config["brand_context"]
+        
         print(f"📋 Brand context loaded: {len(brand_context)} chars")
-        # ==================== END CRITICAL FIX ====================
 
         # Extract URLs and user context
         urls = extract_urls(content_raw)
@@ -2333,7 +2452,6 @@ Please contact the bot administrator to add this project."""
         print(f"❌ WEBHOOK ERROR: {e}")
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
-
 # ==================== STARTUP ====================
 # Add this to your main block, BEFORE app.run():
 
