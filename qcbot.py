@@ -2220,93 +2220,99 @@ def queue_worker():
                 current_task = None
 
 # ==================== CARD TABLE VALIDATION ====================
+# ==================== CARD TABLE VALIDATION ====================
 def validate_card_table(project_id, card_id, token):
     """
     Validate that the card belongs to the correct card table for the project.
     Returns (is_valid, card_table_id, error_message)
     """
     try:
-        print(f"🔍 Validating card table for card {card_id} in project {project_id}")
+        print(f"🔍 Validating card table for ID {card_id} in project {project_id}")
         
-        # Get card details
-        card_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{card_id}.json"
-        print(f"   Fetching card: {card_url}")
+        # CRITICAL FIX: card_id from webhook is actually a COMMENT ID
+        # We need to get the parent CARD first, then check its card table
+        
+        # Step 1: Get the comment to find the actual card
+        comment_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{card_id}.json"
+        print(f"   Fetching comment/card: {comment_url}")
         
         r = requests.get(
+            comment_url,
+            headers={"Authorization": f"Bearer {token}"},
+            timeout=15
+        )
+        
+        print(f"   Response status: {r.status_code}")
+        
+        if not r.ok:
+            print(f"   ⚠️ Fetch failed: {r.status_code}")
+            return True, None, None  # Allow processing if API fails
+        
+        # Check if response has content
+        if not r.content:
+            print(f"   ⚠️ Empty response from API")
+            return True, None, None
+        
+        try:
+            data = r.json()
+        except Exception as json_err:
+            print(f"   ⚠️ JSON decode error: {json_err}")
+            print(f"   Response text: {r.text[:200]}")
+            return True, None, None  # Allow processing if JSON fails
+        
+        print(f"   Data type: {data.get('type')}")
+        
+        # Step 2: Find the actual card
+        # If this is a comment, get its parent (which should be the card)
+        parent = data.get("parent")
+        if not parent:
+            print("   ⚠️ No parent found - cannot validate")
+            return True, None, None
+        
+        actual_card_id = parent.get("id")
+        parent_type = parent.get("type")
+        
+        print(f"   Parent ID: {actual_card_id}, Type: {parent_type}")
+        
+        if not actual_card_id:
+            print("   ⚠️ No parent ID found")
+            return True, None, None
+        
+        # Step 3: Get the actual card details
+        card_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{actual_card_id}.json"
+        print(f"   Fetching actual card: {card_url}")
+        
+        card_r = requests.get(
             card_url,
             headers={"Authorization": f"Bearer {token}"},
             timeout=15
         )
         
-        print(f"   Card response status: {r.status_code}")
-        
-        if not r.ok:
-            print(f"   Card fetch failed: {r.status_code} - {r.text[:200]}")
-            return False, None, f"Failed to fetch card details: {r.status_code}"
+        if not card_r.ok or not card_r.content:
+            print(f"   ⚠️ Card fetch failed or empty")
+            return True, None, None
         
         try:
-            card_data = r.json()
-        except Exception as json_err:
-            print(f"   JSON decode error for card: {json_err}")
-            print(f"   Response content: {r.text[:500]}")
-            return False, None, f"Invalid JSON response from card endpoint: {json_err}"
+            card_data = card_r.json()
+        except:
+            print(f"   ⚠️ Card JSON decode failed")
+            return True, None, None
         
-        print(f"   Card data keys: {card_data.keys()}")
+        # Step 4: Get the card's parent (column)
+        card_parent = card_data.get("parent")
+        if not card_parent:
+            print("   ⚠️ Card has no parent column")
+            return True, None, None
         
-        # Try to find card table ID from card's bucket/parent structure
-        # Method 1: Check if card has direct bucket reference
-        bucket = card_data.get("bucket")
-        if bucket:
-            print(f"   Card bucket: {bucket}")
+        column_id = card_parent.get("id")
+        print(f"   Column ID: {column_id}")
         
-        # Method 2: Check parent structure
-        parent = card_data.get("parent")
-        if not parent:
-            print("   ⚠️ Card has no parent field")
-            # If no parent, we might be looking at a comment, not a card
-            # Try to get the actual card this comment is on
-            return True, None, None  # Allow processing for now, log warning
+        if not column_id:
+            print("   ⚠️ No column ID found")
+            return True, None, None
         
-        print(f"   Card parent: {parent}")
-        parent_id = parent.get("id")
-        parent_type = parent.get("type")
-        
-        print(f"   Parent ID: {parent_id}, Parent Type: {parent_type}")
-        
-        # If parent is a Card, we're dealing with a comment on a card
-        # We need to check the card's parent (column), not the comment's parent
-        if parent_type == "Card":
-            print(f"   This is a comment on a card, fetching actual card...")
-            actual_card_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{parent_id}.json"
-            
-            card_r = requests.get(
-                actual_card_url,
-                headers={"Authorization": f"Bearer {token}"},
-                timeout=15
-            )
-            
-            if not card_r.ok:
-                print(f"   Failed to fetch actual card: {card_r.status_code}")
-                return True, None, None  # Allow processing
-            
-            try:
-                actual_card_data = card_r.json()
-                parent = actual_card_data.get("parent")
-                if parent:
-                    parent_id = parent.get("id")
-                    parent_type = parent.get("type")
-                    print(f"   Actual card parent ID: {parent_id}, Type: {parent_type}")
-            except Exception as e:
-                print(f"   Error parsing actual card: {e}")
-                return True, None, None  # Allow processing
-        
-        # Now parent_id should be the column ID
-        if not parent_id:
-            print("   ⚠️ Could not determine parent/column ID")
-            return True, None, None  # Allow processing for now
-        
-        # Get column details to find card table
-        column_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{parent_id}.json"
+        # Step 5: Get the column to find card table
+        column_url = f"https://3.basecampapi.com/{CONFIG['ACCOUNT_ID']}/buckets/{project_id}/recordings/{column_id}.json"
         print(f"   Fetching column: {column_url}")
         
         col_r = requests.get(
@@ -2315,81 +2321,80 @@ def validate_card_table(project_id, card_id, token):
             timeout=15
         )
         
-        print(f"   Column response status: {col_r.status_code}")
-        
-        if not col_r.ok:
-            print(f"   Column fetch failed: {col_r.status_code} - {col_r.text[:200]}")
-            return True, None, None  # Allow processing if we can't validate
+        if not col_r.ok or not col_r.content:
+            print(f"   ⚠️ Column fetch failed or empty")
+            return True, None, None
         
         try:
             column_data = col_r.json()
-        except Exception as json_err:
-            print(f"   JSON decode error for column: {json_err}")
-            print(f"   Response content: {col_r.text[:500]}")
-            return True, None, None  # Allow processing
+        except:
+            print(f"   ⚠️ Column JSON decode failed")
+            return True, None, None
         
-        print(f"   Column data keys: {column_data.keys()}")
-        
-        # Get the card table (parent of the column)
-        card_table_parent = column_data.get("parent")
-        if not card_table_parent:
+        # Step 6: Get the card table (parent of column)
+        column_parent = column_data.get("parent")
+        if not column_parent:
             print("   ⚠️ Column has no parent card table")
-            return True, None, None  # Allow processing
+            return True, None, None
         
-        print(f"   Card table parent: {card_table_parent}")
-        
-        actual_card_table_id = card_table_parent.get("id")
-        if not actual_card_table_id:
-            print("   ⚠️ Could not determine card table ID")
-            return True, None, None  # Allow processing
-        
+        actual_card_table_id = column_parent.get("id")
         print(f"   ✅ Found card table ID: {actual_card_table_id}")
         
-        # Get expected card table for this project
+        if not actual_card_table_id:
+            print("   ⚠️ No card table ID found")
+            return True, None, None
+        
+        # Step 7: Validate against expected card table
         project_config = get_project_config(project_id)
         if not project_config:
-            return False, None, f"Project {project_id} not configured"
+            print(f"   ⚠️ No project config")
+            return True, None, None
         
         expected_card_table_id = project_config.get("card_table_id")
         if not expected_card_table_id:
-            print(f"   ⚠️ No card table configured for {project_config['name']}, allowing all")
-            return True, actual_card_table_id, None  # Allow if not configured
+            print(f"   ⚠️ No expected card table configured for {project_config['name']}")
+            return True, actual_card_table_id, None
         
-        print(f"   Expected card table ID: {expected_card_table_id}")
-        print(f"   Actual card table ID: {actual_card_table_id}")
+        print(f"   Expected card table: {expected_card_table_id}")
+        print(f"   Actual card table: {actual_card_table_id}")
         
-        # Validate match
+        # Step 8: Compare
         if actual_card_table_id != expected_card_table_id:
             project_name = project_config["name"]
             error_msg = f"""❌ **WRONG CARD TABLE / BOARD**
 
-This card is in the WRONG LOCATION for **{project_name}** QC.
+This card is in the **WRONG LOCATION** for **{project_name}** QC.
 
 **🎯 Expected Card Table ID:** `{expected_card_table_id}`
 **📍 Current Card Table ID:** `{actual_card_table_id}`
 
-**Action Required:**
-Move this card to the correct QC board designated for {project_name}.
+**⚠️ Action Required:**
+Please move this card to the correct QC board designated for **{project_name}** before requesting QC.
+
+**Supported Projects & Their Card Tables:**
+{chr(10).join([f"• {p['name']}: Card Table ID {p['card_table_id']}" for p in PROJECTS.values()])}
 
 If you believe this is an error, contact the bot administrator."""
             
-            print(f"   ❌ VALIDATION FAILED: Card table mismatch!")
+            print(f"   ❌ VALIDATION FAILED!")
+            print(f"   Card is in WRONG card table!")
             return False, actual_card_table_id, error_msg
         
-        print(f"   ✅ Card table validation PASSED!")
+        print(f"   ✅ VALIDATION PASSED! Card is in correct table.")
         return True, actual_card_table_id, None
         
+    except requests.exceptions.Timeout:
+        print(f"   ⚠️ Request timeout")
+        return True, None, None
+        
     except requests.exceptions.RequestException as req_err:
-        error_msg = f"Network error during card table validation: {req_err}"
-        print(f"✗ {error_msg}")
-        traceback.print_exc()
-        return True, None, None  # Allow processing on network errors
+        print(f"   ⚠️ Network error: {req_err}")
+        return True, None, None
         
     except Exception as e:
-        error_msg = f"Card table validation error: {type(e).__name__}: {e}"
-        print(f"✗ {error_msg}")
+        print(f"   ⚠️ Unexpected error: {type(e).__name__}: {e}")
         traceback.print_exc()
-        return True, None, None  # Allow processing on unexpected errors
+        return True, None, None
 # ==================== WEBHOOK ====================
 @app.route("/webhook/basecamp", methods=["POST"])
 def basecamp_webhook():
