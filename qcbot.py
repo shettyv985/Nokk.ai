@@ -747,6 +747,7 @@ CRITICAL ERROR CATEGORIES (NEVER MISS THESE)
 ═══════════════════════════════════════════════════
 
 🚨 BLOCKER ISSUES (Must fix before approval):
+**BRAND/CREATIVE MISMATCH:** Image shows a DIFFERENT brand than the one in brand context (wrong logo, wrong brand name visible, wrong products, wrong industry) - If detected, set APPROVAL STATUS to "BLOCKED - BRAND MISMATCH"
 • Grammar/spelling errors in headlines, CTAs, or body copy
 • Wrong logo version, incorrect brand colors, or distorted logo
 • Illegible text (poor contrast, too small, cut off)
@@ -936,10 +937,24 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 **📋 RECOMMENDED IMPROVEMENTS:**
 1. [Nice-to-have enhancement]
 2. [Polish suggestion]
+───────────────────────────────────────────────────
+**APPROVAL STATUS:** [BLOCKED - BRAND MISMATCH / BLOCKED / NEEDS REVISION / APPROVED WITH NOTES / APPROVED]
+───────────────────────────────────────────────────
 
-───────────────────────────────────────────────────
-**APPROVAL STATUS:** [BLOCKED / NEEDS REVISION / APPROVED WITH NOTES / APPROVED]
-───────────────────────────────────────────────────
+**Status Logic:**
+- **BLOCKED - BRAND MISMATCH:** Image shows wrong brand (logo, name, products don't match brand context)
+- **BLOCKED:** Grammar errors or critical flaws
+- **NEEDS REVISION:** High priority issues
+- **APPROVED WITH NOTES:** Minor improvements suggested
+- **APPROVED:** Ready for production
+
+⚠️ **SPECIAL INSTRUCTION:** If the image shows a DIFFERENT brand logo, name, or products than what's described in the brand context, immediately output:
+
+**APPROVAL STATUS: BLOCKED - BRAND MISMATCH**
+
+**Reason:** This creative appears to be for [detected brand] but the brand context is for [expected brand]. Please verify you're uploading to the correct project and card table.
+
+[Skip detailed analysis if brand mismatch detected]
 
 ═══════════════════════════════════════════════════
 STRICT SCORING SYSTEM
@@ -1107,6 +1122,12 @@ def perform_text_qc(text, brand_context: str = "", is_reel: bool = False):
             prompt = f"""You are a Senior Reel/Video Content QC Analyst specializing in short-form video content for social media. Your feedback must be specific, actionable, and focused on video performance.
 
 ═══════════════════════════════════════════════════
+BRAND CONTEXT (MUST BE STRICTLY FOLLOWED)
+═══════════════════════════════════════════════════
+{brand_context}
+
+⚠️ **CRITICAL:** Every aspect of your analysis must verify alignment with the brand context above. Any deviation from brand guidelines, tone, or messaging is a BLOCKER issue.
+═══════════════════════════════════════════════════
 SCRIPT TO ANALYZE
 ═══════════════════════════════════════════════════
 **Script Length:** {len(text.split())} words
@@ -1131,6 +1152,7 @@ CRITICAL ERROR CATEGORIES (NEVER MISS THESE)
 ═══════════════════════════════════════════════════
 
 🚨 BLOCKER ISSUES (Must fix before production):
+- **BRAND/SCRIPT MISMATCH:** Script appears to be for a DIFFERENT brand than the one in brand context (wrong brand name, wrong products, wrong industry) - If detected, immediately set PRODUCTION STATUS to "BLOCKED - BRAND MISMATCH" and stop detailed analysis
 • Weak or missing hook in first 3 seconds
 • Grammar/spelling errors in dialogues or captions
 • Script too long for intended platform (>60 sec for Reels)
@@ -1316,8 +1338,23 @@ REQUIRED OUTPUT FORMAT (Copy Exactly)
 2. [Polish suggestion for engagement]
 
 ───────────────────────────────────────────────────
-**PRODUCTION STATUS:** [BLOCKED / NEEDS REVISION / READY WITH NOTES / READY TO FILM]
+**PRODUCTION STATUS:** [BLOCKED - BRAND MISMATCH / BLOCKED / NEEDS REVISION / READY WITH NOTES / READY TO FILM]
 ───────────────────────────────────────────────────
+
+**Status Logic:**
+- **BLOCKED - BRAND MISMATCH:** Script is for wrong brand (wrong brand name/products/industry mentioned)
+- **BLOCKED:** Critical grammar/safety issues
+- **NEEDS REVISION:** High priority issues affecting quality
+- **READY WITH NOTES:** Minor improvements suggested
+- **READY TO FILM:** All systems go
+
+⚠️ **SPECIAL INSTRUCTION:** If at ANY point during analysis you notice the script mentions a DIFFERENT brand name, products, or industry than what's in the brand context above, immediately output:
+
+**PRODUCTION STATUS: BLOCKED - BRAND MISMATCH**
+
+**Reason:** This script appears to be for [detected brand/industry] but the brand context is for [expected brand/industry]. Please verify you're in the correct project and card table.
+
+[Skip detailed category scoring if brand mismatch detected]
 
 ═══════════════════════════════════════════════════
 STRICT SCORING SYSTEM
@@ -1486,6 +1523,12 @@ Now analyze this reel/video script following this exact structure  and get them 
 
 Text Content: "{text}"
 {brand_section}
+═══════════════════════════════════════════════════
+BRAND CONTEXT (MUST BE STRICTLY FOLLOWED)
+═══════════════════════════════════════════════════
+{brand_context}
+
+⚠️ **CRITICAL:** Every aspect of your analysis must verify alignment with the brand context above. Any deviation from brand guidelines, tone, or messaging is a BLOCKER issue.
 
 ═══════════════════════════════════════════════════
 YOUR CORE MISSION
@@ -1508,6 +1551,7 @@ CRITICAL ERROR CATEGORIES (NEVER MISS THESE)
 ═══════════════════════════════════════════════════
 
 🚨 BLOCKER ISSUES (Must fix before production):
+- **BRAND/COPY MISMATCH:** Copy mentions a DIFFERENT brand than the one in brand context (wrong brand name, wrong products/services, wrong industry) - Set PRODUCTION STATUS to "BLOCKED - BRAND MISMATCH"
 - Grammar or spelling errors ANYWHERE in copy
 - Factual errors in product names, prices, or claims
 - Missing or completely unclear CTA
@@ -1735,11 +1779,18 @@ OR
 ───────────────────────────────────────────────────
 
 **Status Guide:**
+- **BLOCKED - BRAND MISMATCH:** Script is for wrong brand (wrong brand name/products/industry mentioned)
 - **BLOCKED:** Grammar errors or critical flaws present
 - **NEEDS REVISION:** High priority issues that hurt effectiveness
 - **APPROVED WITH NOTES:** Minor improvements suggested but not required
 - **APPROVED:** Ready for production as-is
+⚠️ **SPECIAL INSTRUCTION:** If at ANY point during analysis you notice the script mentions a DIFFERENT brand name, products, or industry than what's in the brand context above, immediately output:
 
+**PRODUCTION STATUS: BLOCKED - BRAND MISMATCH**
+
+**Reason:** This script appears to be for [detected brand/industry] but the brand context is for [expected brand/industry]. Please verify you're in the correct project and card table.
+
+[Skip detailed category scoring if brand mismatch detected]
 ═══════════════════════════════════════════════════
 STRICT SCORING SYSTEM
 ═══════════════════════════════════════════════════
