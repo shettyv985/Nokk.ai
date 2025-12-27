@@ -860,16 +860,28 @@ OUTPUT FORMAT (CONCISE)
 SECTION-BY-SECTION CHECK:**
 
 1. TOP AREA (Logo/Header):
-[✓ All clear] OR [✗ Issues: List only actual errors with exact locations]
+[If no issues:]
+✓ All clear 
+[If issues found:]
+[✗ Issues: List only actual errors with exact locations]
 
 2. COPY QUALITY:
-[✓ All clear] OR [✗ Issues: Quote exact problematic text]
+[If no issues:]
+✓ All clear  
+[If issues found:]
+[✗ Issues: Quote exact problematic text]
 
 3. DESIGN & LAYOUT:
-[✓ All clear] OR [✗ Issues: Specify broken elements]
+[If no issues:]
+✓ All clear  
+[If issues found:] 
+[✗ Issues: Specify broken elements]
 
 4. CTA & FOOTER:
-[✓ All clear] OR [✗ Issues: State what's wrong and why]
+[If no issues:]
+✓ All clear  
+[If issues found:]
+[✗ Issues: State what's wrong and why]
 
 5. BRAND CONSISTENCY:
 [✓ Aligned with guidelines] OR [✗ Deviations: List specific violations]
