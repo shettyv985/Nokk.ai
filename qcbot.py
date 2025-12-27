@@ -723,7 +723,7 @@ def perform_image_qc_with_huggingface(image: Image.Image, brand_context: str = "
         
         brand_section = f"\n**Brand Context:**\n{brand_context}\n" if brand_context else ""
         
-        prompt = f"""You are a Senior Visual QC Analyst specializing in digital and print advertising. Your feedback must be specific, consistent, actionable, and thorough.Analyze objectively—catch real errors but don't invent issues.
+        prompt = f"""You are a Senior Visual QC Analyst specializing in digital and print advertising with 20 years of experience. Your feedback must be specific, consistent, actionable, and thorough.Analyze objectively—catch real errors but don't invent issues.
 
 ═══════════════════════════════════════════════════
 IMAGE SPECIFICATIONS
@@ -760,28 +760,6 @@ Spot HIGH PRIORITY issues that need fixing
 Note MEDIUM PRIORITY improvements
 Provide specific, actionable feedback with exact fixes
 Score fairly with transparent math
-
-═══════════════════════════════════════════════════
-🚨 CRITICAL FIRST CHECK - BRAND VERIFICATION
-═══════════════════════════════════════════════════
-BEFORE ANALYZING ANYTHING ELSE:
-
-Read the brand context carefully
-Identify the brand logo, name, and products visible in the image
-If brand in image ≠ brand in context:
-
-Immediately output: APPROVAL STATUS: BLOCKED - BRAND MISMATCH
-State: "This creative shows [Brand X] but context is for [Brand Y]"
-Skip detailed analysis
-End report
-
-
-
-Brand Mismatch Examples:
-
-Image shows "Nike" logo but context is for "Adidas"
-Image shows real estate project but context is for frozen foods
-Image shows automotive dealership but context is for digital marketing agency
 
 ═══════════════════════════════════════════════════
 CRITICAL ERROR CATEGORIES (NEVER MISS THESE)
@@ -947,11 +925,7 @@ Detected Format: [Instagram Post / Facebook Ad / etc.]
 SECTION 1: TOP AREA - LOGO/BRANDING/HEADER
 ───────────────────────────────────────────────────
 STATUS: [✓ ALL CLEAR / ⚠️ ISSUES FOUND]
-[If no issues:]
-
-✓ Logo implemented correctly
-✓ Brand name accurate
-✓ Header text perfect
+[If no issues:] ✓ No issue All clear
 
 [If issues found:]
 ✗ ISSUES FOUND:
@@ -973,11 +947,7 @@ Problem: [What could be better]
 SECTION 2: COPY QUALITY & CONTENT
 ───────────────────────────────────────────────────
 STATUS: [✓ ALL CLEAR / ⚠️ ISSUES FOUND]
-[If no issues:]
-
-✓ Grammar and spelling perfect
-✓ Message clear and compelling
-✓ Tone matches brand voice
+[If no issues:] ✓ No issue All clear
 
 [If issues found:]
 ✗ ISSUES FOUND:
@@ -998,12 +968,7 @@ Current: "[Quote text]"
 SECTION 3: DESIGN & VISUAL QUALITY
 ───────────────────────────────────────────────────
 STATUS: [✓ ALL CLEAR / ⚠️ ISSUES FOUND]
-[If no issues:]
-
-✓ Layout organized and balanced
-✓ Visual hierarchy clear
-✓ Image quality excellent
-✓ Alignment and spacing consistent
+[If no issues:] ✓ No issue All clear
 
 [If issues found:]
 ✗ ISSUES FOUND:
@@ -1024,12 +989,7 @@ Enhancement: [How to polish]
 SECTION 4: CTA & FOOTER ELEMENTS
 ───────────────────────────────────────────────────
 STATUS: [✓ ALL CLEAR / ⚠️ ISSUES FOUND]
-[If no issues:]
-
-✓ CTA clear and action-oriented
-✓ CTA visually prominent
-✓ Contact information accurate
-✓ Footer elements complete
+[If no issues:] ✓ No issue All clear
 
 [If issues found:]
 ✗ ISSUES FOUND:
@@ -1046,17 +1006,6 @@ Problem: [Weakness identified]
 [MEDIUM] - [Issue Title]
 Suggestion: [Enhancement idea]
 Benefit: [Improvement gained]
-
-───────────────────────────────────────────────────
-SECTION 5: BRAND CONSISTENCY CHECK
-───────────────────────────────────────────────────
-LOGO STATUS:
-
-Visibility: [Clear / Pixelated / Distorted / Too small]
-Version: [Correct primary logo / Wrong variant / Outdated]
-Placement: [Proper position / Off-center / Incorrect clear space]
-Resolution: [High quality / Blurry / Compressed]
-Assessment: [✓ Correctly implemented / Issues found below]
 
 Overall Consistency:
 
@@ -1100,20 +1049,10 @@ Final Score: [X]/10
 Grade: [Rating category]
 Assessment: [CTA strength evaluation]
 
-🏢 BRANDING CONSISTENCY: [X]/10
-Calculation:
-
-Base Score: 10/10
-Deduction: -[X] pts → [Specific issue: "Off-brand blue used (#2E5C8A vs brand #2563EB)"]
-Deduction: -[X] pts → [Specific issue: "Wrong font: Arial instead of brand font Montserrat"]
-Final Score: [X]/10
-Grade: [Rating category]
-Assessment: [Brand adherence summary]
-
 ⭐ OVERALL IMPACT: [X]/10
 Calculation:
 
-Average of above: ([Copy + Design + CTA + Branding] ÷ 4) = [X.X]
+Average of above: ([Copy + Design + CTA] ÷ 3) = [X.X]
 Adjustment: [+/-X pts] → [Reason: "Cohesive storytelling boosts impact" / "Multiple issues reduce effectiveness"]
 Final Score: [X]/10
 Grade: [Rating category]
@@ -1223,17 +1162,9 @@ START EVERY CATEGORY AT 10/10, THEN DEDUCT POINTS:
 -1 point: CTA could be more action-oriented (good but not great)
 -1 point: Multiple competing CTAs causing confusion
 
-🏢 BRANDING CONSISTENCY DEDUCTIONS:
-
--3 points: Wrong logo version or severely distorted logo
--3 points: Logo missing or illegible (pixelated/too small)
--1 point: Logo sizing or placement not ideal
--1 point: Minor color shade variations from brand palette
--1 point: Inconsistent brand element usage
-
 ⭐ OVERALL IMPACT CALCULATION:
 
-Calculate average: (Copy + Design + CTA + Branding) ÷ 4
+Calculate average: (Copy + Design + CTA ) ÷ 3
 Apply holistic adjustments:
 
 +1 point: Exceptional cohesion, storytelling, or creative execution
@@ -1513,6 +1444,7 @@ Damaged brand perception
 Costly reprints or re-edits
 Lost stakeholder confidence
 
+**NOTE:Be objective dont invent issues**
 
 **REMEMBER:** You are the last line of defense before this creative goes live. Be thorough, be specific, be consistent. Every error you catch saves the brand's reputation and marketing investment.Catch real errors that matter. Don't manufacture issues.
 
@@ -1530,7 +1462,7 @@ Now analyze the image following this exact structure."""
                     ]
                 }
             ],
-            max_tokens=800,
+            max_tokens=1000,
             temperature=0.3
         )
         
