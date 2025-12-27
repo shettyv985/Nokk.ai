@@ -746,7 +746,7 @@ Stop immediately.
 ═══════════════════════════════════════════════════
 REQUIRED OUTPUT FORMAT (Copy Exactly)
 ═══════════════════════════════════════════════════
-🚨 **POST BLOCKED - BRAND MISMATCH**
+🚨 POST BLOCKED - BRAND MISMATCH
 
 **Image shows:** [Brand name/logo visible in the image]  
 **Expected brand:** [Brand name from context above]
@@ -855,62 +855,49 @@ Ask yourself:
 ═══════════════════════════════════════════════════
 OUTPUT FORMAT (Concise & Clear)
 ═══════════════════════════════════════════════════
-
-**🔍 VISUAL QC ANALYSIS**
+🔍 VISUAL QC ANALYSIS
 **Dimensions:** {image.size[0]}×{image.size[1]}px | **Format:** [Detected format]
-
----
-
 ───────────────────────────────────────────────────
-**SECTION 1: TOP AREA - LOGO/BRANDING/HEADER**
+SECTION 1: TOP AREA - LOGO/BRANDING/HEADER
 ───────────────────────────────────────────────────
-• [If no issues: "✓ All good"]
+• If no issues: "✓ All good"
 
-✗ **ISSUES FOUND:**
+✗ If ISSUES FOUND:
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Location:** [Specific area]
-
-
 ───────────────────────────────────────────────────
-**SECTION 2: COPY QUALITY & CONTENT**
+SECTION 2: COPY QUALITY & CONTENT
 ───────────────────────────────────────────────────
-• [If no issues: "✓ All good"]
+• If no issues: "✓ All good"
 
-✗ **ISSUES FOUND:**
+✗ If ISSUES FOUND:
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current Text:** "[Quote exact problematic text]"
   **Problem:** [Grammar error, spelling mistake, clarity issue]
-
-
 ───────────────────────────────────────────────────
-**SECTION 3: DESIGN & VISUAL QUALITY**
+SECTION 3: DESIGN & VISUAL QUALITY
 ───────────────────────────────────────────────────
-• [If no issues: "✓ All good"]
+• If no issues: "✓ All good"
 
-✗ **ISSUES FOUND:**
+✗ If ISSUES FOUND:
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Element:** [Specific design element]
   **Problem:** [Alignment, spacing, image quality, hierarchy issue]
-
-
 ───────────────────────────────────────────────────
-**SECTION 4: CTA & FOOTER ELEMENTS**
+SECTION 4: CTA & FOOTER ELEMENTS
 ───────────────────────────────────────────────────
 • [If no issues: "✓ All good"]
 
-✗ **ISSUES FOUND:**
+✗ If ISSUES FOUND:
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current:** "[Quote exact CTA or footer text]"
   **Problem:** [Not action-oriented, poor visibility, incorrect info]
-]
-
 ───────────────────────────────────────────────────
-**SECTION 5: BRAND CONSISTENCY CHECK**
+SECTION 5: BRAND CONSISTENCY CHECK
 ───────────────────────────────────────────────────
 **LOGO STATUS:**
 • **Current:** [Description of logo as shown]
 • **Issues:** [Specific problems] OR "✓ Correctly implemented"
-
 
 **BRAND GUIDELINES:**
 • **Colors:** [On-brand / Off-brand with specifics]
@@ -920,41 +907,36 @@ OUTPUT FORMAT (Concise & Clear)
 ───────────────────────────────────────────────────
 **SECTION 6:SCROLL-STOP FACTOR**
 ───────────────────────────────────────────────────
-• [If no issues: "✓ All good"]
+• If no issues: "✓ All good"
 
-✗ **ISSUES FOUND:**
+✗ If ISSUES FOUND:
 • **[BLOCKER/HIGH/MEDIUM]** - [Issue title]
   **Current:** "[Quote exact CTA or footer text]"
   **Problem:** [Not action-oriented, poor visibility, incorrect info]
 **Reasoning:** [1-2 sentences: why would Would target audience won't stop? Why Is it generic or not compelling?]
-
 ═══════════════════════════════════════════════════
-**📊 FINAL SCORES**
+📊 FINAL SCORES
 ═══════════════════════════════════════════════════
-
 **CATEGORY BREAKDOWN:**
 • Copy Quality (25%): [X]/10 × 0.25 = [X.XX]
 • Design & Visual (20%): [X]/10 × 0.20 = [X.XX]
 • Brand Consistency (25%): [X]/10 × 0.25 = [X.XX]
 • CTA Effectiveness (15%): [X]/10 × 0.15 = [X.XX]
 • Scroll-Stop Factor (15%): [X]/10 × 0.15 = [X.XX]
-
-**⭐ OVERALL SCORE: [X.X]/10**
+⭐ OVERALL SCORE: [X.X]/10
 
 ---
 
-**🚨 CRITICAL ISSUES (Must Fix):**
+🚨 CRITICAL ISSUES (Must Fix):
 [List blockers] OR [None found]
 
-**⚠️ HIGH PRIORITY (Fix Before Launch):**
+⚠️ HIGH PRIORITY (Fix Before Launch):
 [List high-priority issues] OR [None found]
 
-**📋 MEDIUM PRIORITY (Recommended):**
+📋 MEDIUM PRIORITY (Recommended):
 [List medium-priority items] OR [None found]
 
----
-
-**✅ APPROVAL STATUS:** [Choose ONE]
+✅ APPROVAL STATUS: [Choose ONE]
 
 - **🚨 BLOCKED - BRAND MISMATCH:** [Reason - only if Step 1 caught mismatch]
 - **🚫 BLOCKED:** [X critical issues must be fixed]
