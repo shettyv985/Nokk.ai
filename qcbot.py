@@ -918,8 +918,6 @@ FINAL REMINDERS
 **If you cannot find any objective errors:**
 - Give 9-10 scores
 - Status: APPROVED or APPROVED WITH NOTES
-- Keep report brief (under 150 words)
-- Note what works well
 
 **Only create long reports when real errors exist.**
 
