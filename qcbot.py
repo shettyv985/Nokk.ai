@@ -843,6 +843,13 @@ SCORING SYSTEM (FAIR & TRANSPARENT)
 - -2: Colors clearly violate stated brand guidelines
 - -1: Minor brand guideline deviation
 
+**SCROLL-STOP FACTOR  - Rate honestly 0-10:
+- **9-10 (Excellent):** Instant attention grab. Clear value. Strong hook. Would perform well.
+- **7-8 (Good):** Catches eye but lacks wow factor. Clear but not compelling.
+- **5-6 (Mediocre):** Generic. Easy to scroll past. Lacks distinctive hook.
+- **3-4 (Weak):** Bland. No reason to stop. Wallpaper effect.
+- **0-2 (Poor):** Invisible. Boring. Would get zero engagement.
+
 **Overall Impact:**
 - Average of above scores
 - Adjust ±1 only if multiple small issues compound or exceptional cohesion elevates
@@ -877,13 +884,16 @@ SECTION-BY-SECTION CHECK:**
 [If issues found:] 
 [✗ Issues: Specify broken elements]
 
-4. CTA & FOOTER:
+4.SCROLL-STOP FACTOR:** [X]/10
+[1 sentence: Why would/wouldn't someone stop for this?]
+
+5. CTA & FOOTER:
 [If no issues:]
 ✓ All clear  
 [If issues found:]
 [✗ Issues: State what's wrong and why]
 
-5. BRAND CONSISTENCY:
+6. BRAND CONSISTENCY:
 [✓ Aligned with guidelines] OR [✗ Deviations: List specific violations]
 
 **📊 SCORES:**
@@ -891,7 +901,12 @@ Copy: [X]/10 [Show deductions only if made]
 Design: [X]/10 [Show deductions only if made]
 CTA: [X]/10 [Show deductions only if made]
 Brand: [X]/10 [Show deductions only if made]
-**Overall: [X.X]/10**
+SCROLL-STOP FACTOR [X]/10:- Ask yourself:
+- Would the required audience will stop scrolling for this?
+- Does it create curiosity, desire, or emotion?
+- Is there a clear reason to engage vs competitors?
+- Does design elevate the message or just hold it?
+Overall: [X.X]/10
 
 🚨 CRITICAL ISSUES (Must Fix):
 [List blockers] OR [None found]
@@ -915,18 +930,16 @@ FINAL REMINDERS
 
 **This creative is for {brand_context}. Evaluate accordingly.**
 
-**If you cannot find any objective errors:**
-- Give 9-10 scores
-- Status: APPROVED or APPROVED WITH NOTES
-
 **Only create long reports when real errors exist.**
-
-**Ask yourself before flagging anything:**
-1. Can I prove this is objectively wrong?
-2. Would this cause brand harm, confusion, or conversion loss?
-3. Or am I just suggesting "could be better" based on preference?
-
-**If answer to #3 is yes, DO NOT flag it.**
+**✅ DO:**
+- Give 9-10 technical score if no errors exist
+- Judge scroll-stop honestly (perfect QC ≠ perfect creative)
+- Stop after STATUS line
+**❌ DON'T:**
+- Add explanatory paragraphs after STATUS
+- Manufacture technical errors
+- Give 10/10 scroll-stop to generic posts
+- Write "creative is well-polished" summaries
 Catch every error before launch. Be the last line of defense.
 Now analyze the image objectively."""
 
