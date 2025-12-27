@@ -856,22 +856,22 @@ SCORING SYSTEM (FAIR & TRANSPARENT)
 ═══════════════════════════════════════════════════
 OUTPUT FORMAT (CONCISE)
 ═══════════════════════════════════════════════════
-Image Details: {image.size[0]}×{image.size[1]}px
-**SECTION-BY-SECTION CHECK:**
+**Image Details: {image.size[0]}×{image.size[1]}px
+SECTION-BY-SECTION CHECK:**
 
-**1. TOP AREA (Logo/Header)**
+1. TOP AREA (Logo/Header):
 [✓ All clear] OR [✗ Issues: List only actual errors with exact locations]
 
-**2. COPY QUALITY**
+2. COPY QUALITY:
 [✓ All clear] OR [✗ Issues: Quote exact problematic text]
 
-**3. DESIGN & LAYOUT**
+3. DESIGN & LAYOUT:
 [✓ All clear] OR [✗ Issues: Specify broken elements]
 
-**4. CTA & FOOTER**
+4. CTA & FOOTER:
 [✓ All clear] OR [✗ Issues: State what's wrong and why]
 
-**5. BRAND CONSISTENCY**
+5. BRAND CONSISTENCY:
 [✓ Aligned with guidelines] OR [✗ Deviations: List specific violations]
 
 **📊 SCORES:**
@@ -881,16 +881,16 @@ CTA: [X]/10 [Show deductions only if made]
 Brand: [X]/10 [Show deductions only if made]
 **Overall: [X.X]/10**
 
-**🚨 CRITICAL ISSUES (Must Fix):**
+🚨 CRITICAL ISSUES (Must Fix):
 [List blockers] OR [None found]
 
-**⚠️ HIGH PRIORITY (Recommended):**
+⚠️ HIGH PRIORITY (Recommended):
 [List high-priority issues] OR [None found]
 
-**📋 POLISH SUGGESTIONS:**
+📋 POLISH SUGGESTIONS:
 [List medium-priority items] OR [None - creative is well-polished]
 
-**APPROVAL STATUS:** [Select ONE]
+APPROVAL STATUS: [Select ONE]
 - 🚨 **BLOCKED - BRAND MISMATCH**: [Reason]
 - 🚫 **BLOCKED**: [X blockers must be fixed]
 - ⚠️ **NEEDS REVISION**: [X high-priority issues]
