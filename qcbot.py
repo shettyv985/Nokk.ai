@@ -731,7 +731,24 @@ IMAGE SPECIFICATIONS
 Image Details: {image.size[0]}×{image.size[1]}px
 Format Type: [Auto-detect: Social Media Ad / Display Banner / Print Material]
 {brand_section}
+═══════════════════════════════════════════════════
+🚨 STEP 1: BRAND VERIFICATION (DO THIS FIRST!)
+═══════════════════════════════════════════════════
+CRITICAL: Look at the image. What brand logo/name do you see?
 
+Check logo text, brand name, company name visible
+Compare to brand context above
+
+IF THE BRANDS DON'T MATCH:
+Stop immediately and output ONLY this:
+
+APPROVAL STATUS: 🚨 BLOCKED - BRAND MISMATCH
+Image shows: [Brand name visible in image]
+Context expects: [Brand name from brand context]
+Action: Verify you're in the correct project/card table. Do not proceed with QC until brand match is confirmed.
+DO NOT analyze further if brands don't match. END HERE.
+
+STEP 2: IF BRAND MATCHES, PROCEED WITH QC
 ═══════════════════════════════════════════════════
 YOUR CORE MISSION
 ═══════════════════════════════════════════════════
